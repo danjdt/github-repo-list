@@ -40,12 +40,16 @@
                     android:orientation="vertical">
 
                 <TextView
+                        android:id="@+id/repositoryTextView"
                         style="@style/TextAppearance.AppCompat.Headline"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tool:text="title" />
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        tool:text="Repository" />
 
                 <TextView
+                        android:id="@+id/descriptionTextView"
                         style="@style/TextAppearance.AppCompat.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -74,6 +78,7 @@
                         tool:src="@android:drawable/ic_menu_report_image" />
 
                 <TextView
+                        android:id="@+id/usernameTextView"
                         style="@style/TextAppearance.AppCompat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -81,6 +86,7 @@
                         tool:text="Username" />
 
                 <TextView
+                        android:id="@+id/nameTextView"
                         style="@style/TextAppearance.AppCompat.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -103,6 +109,7 @@
                         android:tint="@color/colorAccent" />
 
                 <TextView
+                        android:id="@+id/forksTextView"
                         style="@style/TextAppearance.AppCompat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -120,6 +127,7 @@
                         android:tint="@color/colorAccent" />
 
                 <TextView
+                        android:id="@+id/starsTextView"
                         style="@style/TextAppearance.AppCompat.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

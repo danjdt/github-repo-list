@@ -2,7 +2,7 @@ package com.danjdt.githubjavarepos.di
 
 import com.danjdt.domain.interactor.FetchJavaRepositoriesInteractor
 import com.danjdt.domain.interactor.FetchJavaRepositoriesInteractorImpl
-import com.danjdt.githubjavarepos.viewmodel.RepositoriesViewModel
+import com.danjdt.githubjavarepos.viewmodel.JavaRepositoriesViewModel
 import kotlinx.coroutines.FlowPreview
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -16,5 +16,5 @@ val repositoriesModule = module {
 
     single<FetchJavaRepositoriesInteractor> { FetchJavaRepositoriesInteractorImpl(get()) }
 
-    viewModel { RepositoriesViewModel(get()) }
+    viewModel { JavaRepositoriesViewModel(get()) }
 }
