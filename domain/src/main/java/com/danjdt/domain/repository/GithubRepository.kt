@@ -14,5 +14,5 @@ interface GithubRepository {
 
     suspend fun fetchJavaRepositories(page: Int): Flow<List<Repository>>
 
-    suspend fun fetchPullRequests(owner: String, repository: String): Flow<List<PullRequest>>
+    suspend fun fetchPullRequests(owner: String, repository: String, page: Int): Flow<List<PullRequest>>
 }
