@@ -7,14 +7,13 @@ import com.danjdt.domain.repository.GithubRepository
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
 /**
  *  @autor danieljdt
  *  @date 2019-11-02
  **/
 @FlowPreview
-class GithubRepositoryImpl @Inject constructor(private val dataSource: RepositoryDataSource): GithubRepository {
+class GithubRepositoryImpl(private val dataSource: RepositoryDataSource): GithubRepository {
 
     override suspend fun fetchJavaRepositories(page: Int): Flow<List<Repository>> = flow {
         try {
