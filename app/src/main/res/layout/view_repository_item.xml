@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tool="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_xsmall"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_xsmall"
+            app:cardBackgroundColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+                android:id="@+id/containerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_item_selectable"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="@dimen/padding_default">
+
+            <LinearLayout
+                    android:id="@+id/textGroupView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/statsGroupView"
+                    android:layout_alignParentTop="true"
+                    android:layout_toStartOf="@+id/userGroupView"
+                    android:layout_toLeftOf="@+id/userGroupView"
+                    android:orientation="vertical">
+
+                <TextView
+                        style="@style/TextAppearance.AppCompat.Headline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tool:text="title" />
+
+                <TextView
+                        style="@style/TextAppearance.AppCompat.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        tool:text="Vivamus vel magna sit amet urna cursus fringilla. Etiam nec sem non nibh accumsan interdum sed id tellus. Nulla facilisi." />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/userGroupView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/margin_default"
+                    android:layout_marginLeft="@dimen/margin_default"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/padding_default"
+                    android:paddingBottom="@dimen/padding_default">
+
+                <ImageView
+                        android:layout_width="@dimen/image_size"
+                        android:layout_height="@dimen/image_size"
+                        tool:src="@android:drawable/ic_menu_report_image" />
+
+                <TextView
+                        style="@style/TextAppearance.AppCompat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_xsmall"
+                        tool:text="Username" />
+
+                <TextView
+                        style="@style/TextAppearance.AppCompat.Caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tool:text="Full Name" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/statsGroupView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/userGroupView"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_repoforked"
+                        android:tint="@color/colorAccent" />
+
+                <TextView
+                        style="@style/TextAppearance.AppCompat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:text="0"
+                        tool:text="10.000" />
+
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_large"
+                        android:layout_marginLeft="@dimen/margin_large"
+                        android:src="@drawable/ic_star"
+                        android:tint="@color/colorAccent" />
+
+                <TextView
+                        style="@style/TextAppearance.AppCompat.Body2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:gravity="center"
+                        android:text="0"
+                        tool:text="10.000" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
