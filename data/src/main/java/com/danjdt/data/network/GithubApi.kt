@@ -2,8 +2,6 @@ package com.danjdt.data.network
 
 import com.danjdt.data.network.response.RepositoriesReponse
 import com.danjdt.domain.entity.PullRequest
-import io.reactivex.Observable
-import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.GET
 
