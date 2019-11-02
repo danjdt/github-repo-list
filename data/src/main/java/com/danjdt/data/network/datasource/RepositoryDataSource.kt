@@ -1,9 +1,7 @@
 package com.danjdt.data.network.datasource
 
-import com.danjdt.data.network.response.RepositoriesReponse
 import com.danjdt.domain.entity.PullRequest
 import com.danjdt.domain.entity.Repository
-import retrofit2.Call
 
 /**
  *  @autor danieljdt
