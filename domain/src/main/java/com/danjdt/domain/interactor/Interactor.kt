@@ -6,6 +6,6 @@ package com.danjdt.domain.interactor
  **/
 interface Interactor<T, PARAMS> {
 
-    fun execute(params: PARAMS): T
+    suspend fun execute(params: PARAMS): T
 
 }

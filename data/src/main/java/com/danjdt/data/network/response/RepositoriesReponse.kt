@@ -1,8 +1,13 @@
-package com.danjdt.data.response
+package com.danjdt.data.network.response
+
+import com.danjdt.domain.entity.Repository
 
 /**
  *  @autor danieljdt
  *  @date 2019-11-02
  **/
-class RepositoriesReponse {
-}
+data class RepositoriesReponse(
+    val items: List<Repository>,
+    val incompleteResults: Boolean,
+    val totalCounts: Long
+)
