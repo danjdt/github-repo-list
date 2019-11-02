@@ -25,6 +25,10 @@ android {
 
 }
 
+configurations {
+    compile.exclude group: 'org.jetbrains.kotlinx', module: 'atomicfu-common'
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -38,7 +42,6 @@ dependencies {
     // Network
     implementation "com.squareup.retrofit2:retrofit:2.6.0"
     implementation "com.squareup.retrofit2:converter-gson:2.4.0"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
 
     // Dagger
     implementation "com.google.dagger:dagger:2.22.1"
