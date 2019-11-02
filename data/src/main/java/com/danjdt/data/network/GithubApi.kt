@@ -14,9 +14,9 @@ import retrofit2.http.GET
 interface GithubApi {
 
     @GET("search/repositories?q=language:Java&sort=stars&page={page}")
-    fun fetchJavaRepositories(@Field("page") page: Int): Observable<RepositoriesReponse>
+    suspend fun fetchJavaRepositories(@Field("page") page: Int): RepositoriesReponse
 
     @GET("repos/{owner}/{repository}/pulls")
-    fun fetchPullRequests(@Field("owner") owner: String, @Field("repository") repository: String): Call<List<PullRequest>>
+    suspend fun fetchPullRequests(@Field("owner") owner: String, @Field("repository") repository: String): List<PullRequest>
 
 }
