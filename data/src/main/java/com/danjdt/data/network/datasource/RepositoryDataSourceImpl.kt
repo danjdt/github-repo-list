@@ -14,11 +14,15 @@ class RepositoryDataSourceImpl @Inject constructor(
 ) : RepositoryDataSource {
 
     override suspend fun fetchJavaRepositories(page: Int): List<Repository> {
-        val reponse = githubApi.fetchJavaRepositories(page)
+        val reponse = githubApi.fetchRepositories(page = page)
         return reponse.items
     }
 
-    override suspend fun fetchPullRequests(owner: String, repository: String): List<PullRequest> {
-        return githubApi.fetchPullRequests(owner, repository)
+    override suspend fun fetchPullRequests(
+        owner: String,
+        repository: String,
+        page: Int
+    ): List<PullRequest> {
+        return githubApi.fetchPullRequests(owner, repository, page)
     }
 }

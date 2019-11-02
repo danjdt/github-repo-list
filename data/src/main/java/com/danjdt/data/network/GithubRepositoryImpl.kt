@@ -25,13 +25,12 @@ class GithubRepositoryImpl @Inject constructor(private val dataSource: Repositor
         }
     }
 
-    override suspend fun fetchPullRequests(owner: String, repository: String): Flow<List<PullRequest>> = flow {
+    override suspend fun fetchPullRequests(owner: String, repository: String, page: Int): Flow<List<PullRequest>> = flow {
         try {
-            val pullRequests = dataSource.fetchPullRequests(owner, repository)
+            val pullRequests = dataSource.fetchPullRequests(owner, repository, page)
             emit(pullRequests)
         } catch (e : Exception) {
             throw e
         }
     }
-
 }
