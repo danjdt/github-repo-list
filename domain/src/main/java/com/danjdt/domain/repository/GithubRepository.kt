@@ -9,7 +9,7 @@ import com.danjdt.domain.entity.Repository
  **/
 interface GithubRepository {
 
-    fun fetchJavaRepositories(page: Int) : List<Repository>
+    suspend fun fetchJavaRepositories(page: Int) : List<Repository>
 
-    fun fetchPullRequests(owner: String, repository: String) : List<PullRequest>
+    suspend fun fetchPullRequests(owner: String, repository: String) : List<PullRequest>
 }

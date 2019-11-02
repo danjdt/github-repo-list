@@ -1,7 +1,7 @@
 package com.danjdt.data.network
 
-import com.danjdt.data.response.PullRequestResponse
-import com.danjdt.data.response.RepositoriesReponse
+import com.danjdt.data.network.response.RepositoriesReponse
+import com.danjdt.domain.entity.PullRequest
 import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.Field
@@ -17,6 +17,6 @@ interface GithubApi {
     fun fetchJavaRepositories(@Field("page") page: Int): Observable<RepositoriesReponse>
 
     @GET("repos/{owner}/{repository}/pulls")
-    fun fetchPullRequests(@Field("owner") owner: String, @Field("repository") repository: String): Call<PullRequestResponse>
+    fun fetchPullRequests(@Field("owner") owner: String, @Field("repository") repository: String): Call<List<PullRequest>>
 
 }
