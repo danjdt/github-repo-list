@@ -12,7 +12,7 @@ import javax.inject.Inject
 class FetchJavaRepositoriesInteractor @Inject constructor(private val repository: GithubRepository) :
     Interactor<List<Repository>, Params> {
 
-    override fun execute(params: Params): List<Repository> {
+    override suspend fun execute(params: Params): List<Repository> {
         return repository.fetchJavaRepositories(params.page)
     }
 

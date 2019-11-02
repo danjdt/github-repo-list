@@ -12,7 +12,7 @@ import javax.inject.Inject
 class FetchPullRequestsInteractor @Inject constructor(private val repository: GithubRepository) :
     Interactor<List<PullRequest>, Params> {
 
-    override fun execute(params: Params): List<PullRequest> {
+    override suspend fun execute(params: Params): List<PullRequest> {
         return repository.fetchPullRequests(params.owner, params.repository)
     }
 
