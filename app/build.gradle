@@ -4,6 +4,10 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+
+    def STRING = 'String'
+    def API_URL = 'API_URL'
+
     compileSdkVersion 28
 
     defaultConfig {
@@ -13,6 +17,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField STRING, API_URL, '"https://api.github.com/"'
     }
     buildTypes {
         release {
