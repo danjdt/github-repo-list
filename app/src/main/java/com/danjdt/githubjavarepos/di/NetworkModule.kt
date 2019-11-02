@@ -2,6 +2,7 @@ package com.danjdt.githubjavarepos.di
 
 import com.danjdt.data.network.GithubApi
 import com.danjdt.githubjavarepos.BuildConfig
+import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -18,9 +19,13 @@ val networkModule = module {
 }
 
 fun provideRetrofit(): Retrofit {
+    val gson = GsonBuilder().setFieldNamingPolicy(
+        FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .create()
+
     return Retrofit.Builder()
         .baseUrl(BuildConfig.API_URL)
-        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+        .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 
 }
