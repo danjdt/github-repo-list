@@ -3,12 +3,14 @@ package com.danjdt.domain.interactor
 import com.danjdt.domain.entity.Repository
 import com.danjdt.domain.interactor.FetchJavaRepositoriesInteractor.*
 import com.danjdt.domain.repository.GithubRepository
+import kotlinx.coroutines.FlowPreview
 import javax.inject.Inject
 
 /**
  *  @autor danieljdt
  *  @date 2019-11-02
  **/
+@FlowPreview
 class FetchJavaRepositoriesInteractor @Inject constructor(private val repository: GithubRepository) :
     Interactor<List<Repository>, Params> {
 
