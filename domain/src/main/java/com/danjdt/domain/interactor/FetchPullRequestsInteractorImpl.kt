@@ -13,7 +13,7 @@ import kotlinx.coroutines.FlowPreview
 class FetchPullRequestsInteractorImpl(private val repository: GithubRepository) :
     FetchPullRequestsInteractor {
 
-    override suspend fun execute(params: FetchPullRequestsInteractor.Params): List<PullRequest>? {
+    override suspend fun execute(params: FetchPullRequestsInteractor.Params): List<PullRequest> {
         val flow = repository.fetchPullRequests(params.owner, params.repository, params.page)
         val response = collect(flow)
         return response ?: ArrayList()
