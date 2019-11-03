@@ -1,5 +1,6 @@
 package com.danjdt.githubjavarepos.di
 
+import com.danjdt.domain.entity.Repository
 import com.danjdt.domain.interactor.FetchPullRequestsInteractor
 import com.danjdt.domain.interactor.FetchPullRequestsInteractorImpl
 import com.danjdt.githubjavarepos.viewmodel.PullRequestsViewModel
@@ -16,5 +17,6 @@ val pullRequestsModule = module {
 
     single<FetchPullRequestsInteractor> { FetchPullRequestsInteractorImpl(get()) }
 
-    viewModel { PullRequestsViewModel(get()) }
+    viewModel { (repository: Repository) -> PullRequestsViewModel(get(), repository) }
 }
+
