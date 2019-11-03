@@ -2,6 +2,7 @@ package com.danjdt.githubjavarepos
 
 import android.app.Application
 import com.danjdt.githubjavarepos.di.networkModule
+import com.danjdt.githubjavarepos.di.pullRequestsModule
 import com.danjdt.githubjavarepos.di.repositoriesModule
 import com.danjdt.githubjavarepos.di.repositoryModule
 import kotlinx.coroutines.FlowPreview
@@ -22,7 +23,7 @@ class RepositoryApplication : Application() {
     }
 
     private val appModules: List<Module> by lazy {
-        listOf(repositoriesModule, repositoryModule, networkModule)
+        listOf(repositoriesModule, pullRequestsModule, repositoryModule, networkModule)
     }
 
     override fun onCreate() {
