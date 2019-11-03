@@ -45,12 +45,17 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private val repositoriesObserver: Observer<List<Repository>> = Observer { repositories ->
-        adapter.addItens(repositories)
+        repositories?.let {
+            adapter.addItens(repositories)
+        }
     }
 
     private val isLoadingObserver: Observer<Boolean> = Observer { isLoading ->
-        progressBar.visibility = if (isLoading) VISIBLE else GONE
-        repositoriesRecyclerView.visibility = if (isLoading) GONE else VISIBLE
+        if (swipeRefreshLayout.isRefreshing) {
+            displaySwipeRefresh(isLoading)
+        } else {
+            displayProgressBar(isLoading)
+        }
     }
 
     private val hasLoadMoreObserver: Observer<Boolean> = Observer { hasLoadMore ->
@@ -60,7 +65,9 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repositories)
+
         setupRecyclerView()
+        setupListeners()
         setupObservers()
         fetchRepositories()
     }
@@ -77,10 +84,23 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
+    private fun refresh() {
+        launch {
+            repositoriesViewModel.refresh()
+        }
+    }
+
     private fun setupRecyclerView() {
         repositoriesRecyclerView.adapter = adapter
         repositoriesRecyclerView.layoutManager = linearLayoutManager
+    }
+
+    private fun setupListeners() {
         repositoriesRecyclerView.addOnScrollListener(scrollListener)
+        
+        swipeRefreshLayout.setOnRefreshListener {
+            refresh()
+        }
     }
 
     private fun setupObservers() {
@@ -97,5 +117,27 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope {
         }
 
         return false
+    }
+
+    private fun displaySwipeRefresh(isRefreshing: Boolean) {
+        swipeRefreshLayout.isRefreshing = isRefreshing
+    }
+
+    private fun displayProgressBar(isLoading: Boolean) {
+        if(isLoading) {
+            progressBar.visibility = VISIBLE
+        } else {
+            progressBar.visibility = GONE
+        }
+
+        displayContent()
+    }
+
+    private fun displayContent() {
+        if(progressBar.visibility == VISIBLE) {
+            repositoriesRecyclerView.visibility = GONE
+        } else {
+            repositoriesRecyclerView.visibility = VISIBLE
+        }
     }
 }
