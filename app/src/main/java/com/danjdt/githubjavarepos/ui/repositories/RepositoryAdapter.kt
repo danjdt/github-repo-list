@@ -5,13 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.danjdt.domain.entity.Repository
 import com.danjdt.githubjavarepos.R
+import com.danjdt.githubjavarepos.ui.core.ItemClickListener
 import com.danjdt.githubjavarepos.ui.core.LoadingViewHolder
 
 /**
  * @autor danieljdt
  * @date 2019-11-02
  */
-class RepositoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RepositoryAdapter(val itemClickListener: ItemClickListener<Repository>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val ITEM_REPOSITORY = 1
     private val LOADING = 2
@@ -48,7 +50,7 @@ class RepositoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is RepositoryViewHolder) {
-            holder.bind(repositories[position])
+            holder.bind(repositories[position], itemClickListener)
         } else if (holder is LoadingViewHolder) {
             holder.bind(showLoading)
         }
