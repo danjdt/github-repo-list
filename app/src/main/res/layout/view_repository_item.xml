@@ -60,7 +60,7 @@
 
             <LinearLayout
                     android:id="@+id/userGroupView"
-                    android:layout_width="72dp"
+                    android:layout_width="@dimen/user_container_size"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
@@ -109,7 +109,7 @@
                 <TextView
                         android:id="@+id/forksTextView"
                         style="@style/TextAppearance.AppCompat"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/stats_container_size"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_small"
                         android:layout_marginLeft="@dimen/margin_small"
@@ -127,11 +127,10 @@
                 <TextView
                         android:id="@+id/starsTextView"
                         style="@style/TextAppearance.AppCompat.Body2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/stats_container_size"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_small"
                         android:layout_marginLeft="@dimen/margin_small"
-                        android:gravity="center"
                         android:text="0"
                         tool:text="10.000" />
 
