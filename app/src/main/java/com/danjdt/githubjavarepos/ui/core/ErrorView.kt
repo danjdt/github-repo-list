@@ -1,13 +1,15 @@
 package com.danjdt.githubjavarepos.ui.core
 
 import android.content.Context
-import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.ScrollView
+import android.widget.TextView
 import com.danjdt.githubjavarepos.R
 import com.danjdt.githubjavarepos.extensions.isConnected
-import kotlinx.android.synthetic.main.view_error.view.*
 import retrofit2.HttpException
 
 /**
@@ -16,6 +18,21 @@ import retrofit2.HttpException
  */
 @Suppress("DEPRECATION")
 class ErrorView : FrameLayout {
+
+    lateinit var view : View
+
+    val errorImageView : ImageView by lazy {
+        view.findViewById<ImageView>(R.id.errorImageView)
+    }
+
+    val titleTextView : TextView by lazy {
+        view.findViewById<TextView>(R.id.titleTextView)
+    }
+
+    val messageTextView : TextView by lazy {
+        view.findViewById<TextView>(R.id.messageTextView)
+    }
+
 
     constructor(context: Context) : super(context) {
         setup()
@@ -31,20 +48,32 @@ class ErrorView : FrameLayout {
     }
 
     private fun setup() {
-        LayoutInflater.from(context).inflate(R.layout.view_error, this, false)
+        view = LayoutInflater.from(context).inflate(R.layout.view_error, this, true)
     }
 
-    fun displayError(e: Exception) {
-        if (!context.isConnected) {
-            displayNetworkError()
-            return
-        }
+    fun displayError(e: Exception?) {
+        e?.let {
+            show()
+            if (!context.isConnected) {
+                displayNetworkError()
+                return
+            }
 
-        if (e is HttpException) {
-            displayHttpError(e)
-        } else {
-            displayGenericError()
-        }
+            if (e is HttpException) {
+                displayHttpError(e)
+            } else {
+                displayGenericError()
+            }
+
+        } ?: hide()
+    }
+
+    private fun show() {
+        visibility = VISIBLE
+    }
+
+    private fun hide() {
+        visibility = GONE
     }
 
     private fun displayNetworkError() {
