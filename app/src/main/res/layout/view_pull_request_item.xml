@@ -13,8 +13,9 @@
             style="@style/TextAppearance.AppCompat.Headline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:maxLines="2"
             tool:text="Pull Request" />
 
     <TextView
@@ -22,13 +23,16 @@
             style="@style/TextAppearance.AppCompat.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginTop="@dimen/margin_small"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="5"
             tool:text="Vivamus vel magna sit amet urna cursus fringilla. Etiam nec sem non nibh accumsan interdum sed id tellus. Nulla facilisi." />
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_default"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 

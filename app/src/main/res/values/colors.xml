@@ -8,5 +8,6 @@
     <color name="colorAccent">@color/githubColor</color>
     <color name="ripple">#e1e1e1</color>
     <color name="white">#FFFFFF</color>
+    <color name="divider">#E1E1E1</color>
 
 </resources>
