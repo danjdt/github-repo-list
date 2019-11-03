@@ -12,8 +12,6 @@ data class Repository(
     val name: String,
     val owner: User,
     val description: String,
-    val language: String,
     val forks: Int,
-    val stargazersCount: Int,
-    val updatedAt: Date
+    val stargazersCount: Int
 ) : Serializable
