@@ -5,4 +5,4 @@ package com.danjdt.githubjavarepos.utils
  *  @date 2019-11-03
  **/
 
-val KEY_REPOSITORY = "repository"
+const val KEY_REPOSITORY = "repository"
