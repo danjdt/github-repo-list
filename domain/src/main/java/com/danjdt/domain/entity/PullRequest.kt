@@ -1,5 +1,6 @@
 package com.danjdt.domain.entity
 
+import java.io.Serializable
 import java.util.*
 
 /**
@@ -13,4 +14,4 @@ data class PullRequest(
     val title: String,
     val description: String,
     val htmlUrl: String
-)
+) : Serializable
