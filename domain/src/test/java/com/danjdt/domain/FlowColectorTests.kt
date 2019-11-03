@@ -1,6 +1,6 @@
 package com.danjdt.domain
 
-import com.danjdt.domain.dummy.dummyPullRequestFlow
+import com.danjdt.domain.mock.dummyPullRequestFlow
 import com.danjdt.domain.utils.collect
 import junit.framework.TestCase
 import kotlinx.coroutines.FlowPreview
