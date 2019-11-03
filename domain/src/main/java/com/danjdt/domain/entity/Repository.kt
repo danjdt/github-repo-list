@@ -1,5 +1,6 @@
 package com.danjdt.domain.entity
 
+import java.io.Serializable
 import java.util.*
 
 /**
@@ -15,4 +16,4 @@ data class Repository(
     val forks: Int,
     val stargazersCount: Int,
     val updatedAt: Date
-)
+) : Serializable
