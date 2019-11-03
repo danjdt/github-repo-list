@@ -20,17 +20,19 @@
                 android:tint="@color/colorPrimary"
                 tools:src="@drawable/ic_wifi" />
 
-
         <TextView
                 android:id="@+id/titleTextView"
                 style="@style/TextAppearance.AppCompat.Headline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                tools:text="Title"/>
+                tools:text="Title" />
+
         <TextView
                 android:id="@+id/messageTextView"
-                style="@style/TextAppearance.AppCompat.Body1"
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="14sp"
+                android:layout_marginTop="@dimen/margin_xsmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
