@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.danjdt.domain.entity.PullRequest
 import com.danjdt.githubjavarepos.R
+import com.danjdt.githubjavarepos.ui.core.DividerItemDecoration
 import com.danjdt.githubjavarepos.ui.core.ItemClickListener
 import com.danjdt.githubjavarepos.utils.KEY_REPOSITORY
 import com.danjdt.githubjavarepos.viewmodel.PullRequestsViewModel
@@ -103,6 +104,7 @@ class PullRequestsActivity : AppCompatActivity(), CoroutineScope, ItemClickListe
     private fun setupRecyclerView() {
         pullRequestRecyclerView.adapter = adapter
         pullRequestRecyclerView.layoutManager = linearLayoutManager
+        pullRequestRecyclerView.addItemDecoration(DividerItemDecoration(this))
     }
 
     private fun setupListeners() {
