@@ -34,9 +34,9 @@ class JavaRepositoriesViewModel(private val interactor: FetchJavaRepositoriesInt
 
     suspend fun fetchFirstPage() {
         if (isFirstPage()) {
-            _isLoading.postValue(true)
+            showLoading()
             fetchJavaRepositories()
-            _isLoading.postValue(false)
+            hideLoading()
         }
     }
 
@@ -44,7 +44,13 @@ class JavaRepositoriesViewModel(private val interactor: FetchJavaRepositoriesInt
         fetchJavaRepositories()
     }
 
-    fun incrementPage() {
+    suspend fun refresh() {
+        page = 1
+         _repositories.postValue(null)
+        fetchFirstPage()
+     }
+
+    private fun incrementPage() {
         page++
     }
 
@@ -54,6 +60,15 @@ class JavaRepositoriesViewModel(private val interactor: FetchJavaRepositoriesInt
 
     private fun isFirstPage(): Boolean {
         return page == 1
+    }
+
+    private fun hideLoading() {
+        _isLoading.postValue(false)
+
+    }
+
+    private fun showLoading() {
+        _isLoading.postValue(true)
     }
 
     private suspend fun fetchJavaRepositories() {
