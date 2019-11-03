@@ -1,4 +1,4 @@
-package com.danjdt.domain.dummy
+package com.danjdt.data.mock
 
 import com.danjdt.domain.entity.Repository
 import kotlinx.coroutines.FlowPreview

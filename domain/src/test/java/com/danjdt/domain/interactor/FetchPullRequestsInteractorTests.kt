@@ -1,6 +1,6 @@
 package com.danjdt.domain.interactor
 
-import com.danjdt.domain.GithubRepositoryTestImpl
+import com.danjdt.domain.mock.GithubRepositoryMock
 import junit.framework.TestCase
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.runBlocking
@@ -13,7 +13,7 @@ import kotlinx.coroutines.runBlocking
 class FetchPullRequestsInteractorTests : TestCase() {
 
     private val fetchPullRequestsInteractor by lazy {
-        FetchPullRequestsInteractorImpl(GithubRepositoryTestImpl())
+        FetchPullRequestsInteractorImpl(GithubRepositoryMock())
     }
 
     fun testExecuteMethodReturnsPullRequestsList() = runBlocking {
