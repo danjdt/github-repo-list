@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.ScrollView
 import android.widget.TextView
 import com.danjdt.domain.exception.EmptyListException
 import com.danjdt.githubjavarepos.R
-import com.danjdt.githubjavarepos.extensions.isConnected
+import com.danjdt.githubjavarepos.extensions.hasNetwork
 import retrofit2.HttpException
 
 /**
@@ -55,7 +54,7 @@ class ErrorView : FrameLayout {
     fun displayError(e: Exception?) {
         e?.let {
             show()
-            if (!context.isConnected) {
+            if (!context.hasNetwork) {
                 displayNetworkError()
                 return
             }

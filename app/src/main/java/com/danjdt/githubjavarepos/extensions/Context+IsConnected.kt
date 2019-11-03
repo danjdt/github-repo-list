@@ -8,7 +8,7 @@ import android.net.ConnectivityManager
  *  @date 2019-11-03
  **/
 
-val Context.isConnected: Boolean
+val Context.hasNetwork: Boolean
     get() {
         return (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
             .activeNetworkInfo?.isConnected == true
