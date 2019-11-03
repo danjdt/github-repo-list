@@ -8,6 +8,7 @@ import com.danjdt.domain.entity.Repository
 import com.danjdt.githubjavarepos.R
 import com.danjdt.githubjavarepos.extensions.decimalFormat
 import com.danjdt.githubjavarepos.extensions.loadImageRounded
+import com.danjdt.githubjavarepos.ui.core.ItemClickListener
 
 /**
  *  @autor danieljdt
@@ -15,6 +16,7 @@ import com.danjdt.githubjavarepos.extensions.loadImageRounded
  **/
 class RepositoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    private val containerView: View = itemView.findViewById(R.id.containerView)
     private val repositoryTextView: TextView = itemView.findViewById(R.id.repositoryTextView)
     private val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
     private val usernameTextView: TextView = itemView.findViewById(R.id.usernameTextView)
@@ -22,7 +24,7 @@ class RepositoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val starsTextView: TextView = itemView.findViewById(R.id.starsTextView)
     private val userImageView: ImageView = itemView.findViewById(R.id.userImageView)
 
-    fun bind(repository: Repository) {
+    fun bind(repository: Repository, itemClickListener: ItemClickListener<Repository>) {
         with(repository) {
             repositoryTextView.text = name
             descriptionTextView.text = description
@@ -30,6 +32,10 @@ class RepositoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             forksTextView.text = forks.decimalFormat()
             starsTextView.text = stargazersCount.decimalFormat()
             userImageView.loadImageRounded(owner.avatarUrl)
+        }
+
+        containerView.setOnClickListener {
+            itemClickListener.onItemClicked(repository)
         }
     }
 }
