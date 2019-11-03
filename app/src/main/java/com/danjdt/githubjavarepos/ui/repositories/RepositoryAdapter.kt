@@ -16,7 +16,13 @@ class RepositoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val ITEM_REPOSITORY = 1
     private val LOADING = 2
 
-    private val repositories: ArrayList<Repository> = ArrayList()
+    private var repositories: List<Repository> = ArrayList()
+
+    var showLoading: Boolean = false
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -43,16 +49,18 @@ class RepositoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is RepositoryViewHolder) {
             holder.bind(repositories[position])
+        } else if (holder is LoadingViewHolder) {
+            holder.bind(showLoading)
         }
     }
 
     fun addItens(itens: List<Repository>) {
-        repositories.addAll(itens)
+        repositories = itens
         notifyDataSetChanged()
     }
 
     fun clear() {
-        repositories.clear()
+        repositories = ArrayList()
         notifyDataSetChanged()
     }
 }

@@ -44,8 +44,8 @@
                         style="@style/TextAppearance.AppCompat.Headline"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:maxLines="1"
                         tool:text="Repository" />
 
                 <TextView
@@ -54,13 +54,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:maxLines="3"
+                        android:maxLines="2"
                         tool:text="Vivamus vel magna sit amet urna cursus fringilla. Etiam nec sem non nibh accumsan interdum sed id tellus. Nulla facilisi." />
             </LinearLayout>
 
             <LinearLayout
                     android:id="@+id/userGroupView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="72dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
@@ -73,24 +73,22 @@
                     android:paddingBottom="@dimen/padding_default">
 
                 <ImageView
+                        android:id="@+id/userImageView"
                         android:layout_width="@dimen/image_size"
                         android:layout_height="@dimen/image_size"
                         tool:src="@android:drawable/ic_menu_report_image" />
 
                 <TextView
                         android:id="@+id/usernameTextView"
-                        style="@style/TextAppearance.AppCompat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_xsmall"
-                        tool:text="Username" />
-
-                <TextView
-                        android:id="@+id/nameTextView"
                         style="@style/TextAppearance.AppCompat.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tool:text="Full Name" />
+                        android:layout_marginTop="@dimen/margin_xsmall"
+                        android:textColor="@color/colorPrimary"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:gravity="center"
+                        tool:text="Username" />
 
             </LinearLayout>
 
