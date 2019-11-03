@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.danjdt.domain.entity.Repository
+import com.danjdt.domain.exception.EmptyListException
 import com.danjdt.domain.interactor.FetchJavaRepositoriesInteractor
 import com.danjdt.githubjavarepos.extensions.add
 
@@ -47,7 +48,7 @@ class JavaRepositoriesViewModel(private val interactor: FetchJavaRepositoriesInt
     suspend fun refresh() {
         resetViewModel()
         fetchFirstPage()
-     }
+    }
 
     private fun resetViewModel() {
         page = 1
@@ -78,13 +79,29 @@ class JavaRepositoriesViewModel(private val interactor: FetchJavaRepositoriesInt
     private suspend fun fetchJavaRepositories() {
         try {
             val response = interactor.execute(createParams())
+
+            if (isRepositoriesEmpty() && response.isEmpty()) {
+                throw EmptyListException()
+            }
+
             with(_repositories) {
                 postValue(value?.add(response) ?: response)
             }
 
             _hasLoadMore.postValue(response.isNotEmpty())
             incrementPage()
+
         } catch (e: Exception) {
+            handleException(e)
+        }
+    }
+
+    private fun isRepositoriesEmpty(): Boolean {
+        return _repositories.value?.isEmpty() ?: true
+    }
+
+    private fun handleException(e: Exception) {
+        if (isRepositoriesEmpty()) {
             _exception.postValue(e)
         }
     }
