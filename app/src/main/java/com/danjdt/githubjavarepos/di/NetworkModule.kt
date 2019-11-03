@@ -53,7 +53,7 @@ private fun createCacheControlInterceptor(context: Context): Interceptor {
     return Interceptor { chain ->
         var request = chain.request()
 
-        if (context.hasNetwork) {
+        if (!context.hasNetwork) {
             request = request.newBuilder().header(
                 "Cache-Control",
                 "public, only-if-cached"
