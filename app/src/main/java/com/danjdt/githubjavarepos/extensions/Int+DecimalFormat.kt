@@ -1,4 +1,4 @@
-package com.danjdt.githubjavarepos.utils
+package com.danjdt.githubjavarepos.extensions
 
 import java.text.DecimalFormat
 
@@ -7,7 +7,7 @@ import java.text.DecimalFormat
  *  @date 2019-11-02
  **/
 
-fun Int.format() : String {
+fun Int.decimalFormat() : String {
     val decimalFormat = DecimalFormat("#,###")
     return decimalFormat.format(this)
 }

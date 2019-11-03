@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.danjdt.domain.entity.Repository
 import com.danjdt.domain.interactor.FetchJavaRepositoriesInteractor
+import com.danjdt.githubjavarepos.extensions.add
 
 /**
  *  @autor danieljdt
@@ -23,24 +24,28 @@ class JavaRepositoriesViewModel(private val interactor: FetchJavaRepositoriesInt
     val exception: LiveData<Exception>
         get() = _exception
 
-    suspend fun fetchJavaRepositories() {
-        if(isFirstPage()) {
-            try {
-                incrementPage()
-                val response = interactor.execute(createParams())
-                _repositories.postValue(response)
-            } catch (e : Exception) {
-                _exception.postValue(e)
-            }
+    private val _hasLoadMore: MutableLiveData<Boolean> = MutableLiveData()
+    val hasLoadMore: LiveData<Boolean>
+        get() = _hasLoadMore
+
+    private val _isLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
+    suspend fun fetchFirstPage() {
+        if (isFirstPage()) {
+            _isLoading.postValue(true)
+            fetchJavaRepositories()
+            _isLoading.postValue(false)
         }
+    }
+
+    suspend fun fetchNextPage() {
+        fetchJavaRepositories()
     }
 
     fun incrementPage() {
         page++
-    }
-
-    fun resetPage() {
-        page = 1
     }
 
     private fun createParams(): FetchJavaRepositoriesInteractor.Params {
@@ -49,5 +54,19 @@ class JavaRepositoriesViewModel(private val interactor: FetchJavaRepositoriesInt
 
     private fun isFirstPage(): Boolean {
         return page == 1
+    }
+
+    private suspend fun fetchJavaRepositories() {
+        try {
+            val response = interactor.execute(createParams())
+            with(_repositories) {
+                postValue(value?.add(response) ?: response)
+            }
+
+            _hasLoadMore.postValue(response.isNotEmpty())
+            incrementPage()
+        } catch (e: Exception) {
+            _exception.postValue(e)
+        }
     }
 }
