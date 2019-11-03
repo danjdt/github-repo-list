@@ -47,6 +47,7 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope {
     private val repositoriesObserver: Observer<List<Repository>> = Observer { repositories ->
         repositories?.let {
             adapter.addItens(repositories)
+            displayContent()
         }
     }
 
@@ -97,7 +98,7 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope {
 
     private fun setupListeners() {
         repositoriesRecyclerView.addOnScrollListener(scrollListener)
-        
+
         swipeRefreshLayout.setOnRefreshListener {
             refresh()
         }
@@ -107,6 +108,9 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope {
         repositoriesViewModel.repositories.observe(this, repositoriesObserver)
         repositoriesViewModel.isLoading.observe(this, isLoadingObserver)
         repositoriesViewModel.hasLoadMore.observe(this, hasLoadMoreObserver)
+        repositoriesViewModel.exception.observe(this, Observer {exception  ->
+            displayError(exception)
+        })
     }
 
     private fun isLastItemVisible(): Boolean {
@@ -124,17 +128,27 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun displayProgressBar(isLoading: Boolean) {
-        if(isLoading) {
+        if (isLoading) {
             progressBar.visibility = VISIBLE
         } else {
             progressBar.visibility = GONE
         }
 
-        displayContent()
+        updateContentVisibility()
+    }
+
+    private fun displayError(e: Exception?) {
+        errorView.displayError(e)
+        updateContentVisibility()
     }
 
     private fun displayContent() {
-        if(progressBar.visibility == VISIBLE) {
+        displayError(null)
+        updateContentVisibility()
+    }
+
+    private fun updateContentVisibility() {
+        if (progressBar.visibility == VISIBLE || errorView.visibility == VISIBLE) {
             repositoriesRecyclerView.visibility = GONE
         } else {
             repositoriesRecyclerView.visibility = VISIBLE
