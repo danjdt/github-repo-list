@@ -12,6 +12,6 @@ data class PullRequest(
     val createdAt: Date,
     val user: User,
     val title: String,
-    val description: String,
+    val body: String,
     val htmlUrl: String
 ) : Serializable
