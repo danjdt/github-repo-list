@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.danjdt.domain.entity.PullRequest
 import com.danjdt.domain.entity.Repository
+import com.danjdt.domain.exception.EmptyListException
 import com.danjdt.domain.interactor.FetchPullRequestsInteractor
 import com.danjdt.githubjavarepos.extensions.add
 
@@ -81,14 +82,29 @@ class PullRequestsViewModel(
     private suspend fun fetchPullRequests() {
         try {
             val response = interactor.execute(createParams())
+
+            if (isPullRequestsEmpty() && response.isEmpty()) {
+                throw EmptyListException()
+            }
+
             with(_pullRequests) {
                 postValue(value?.add(response) ?: response)
             }
 
             _hasLoadMore.postValue(response.isNotEmpty())
             incrementPage()
+
         } catch (e: Exception) {
-            //TODO lançar excessão apenas se não tiver nenhum item na lista
+            handleException(e)
+        }
+    }
+
+    private fun isPullRequestsEmpty(): Boolean {
+        return _pullRequests.value?.isEmpty() ?: true
+    }
+
+    private fun handleException(e: Exception) {
+        if (isPullRequestsEmpty()) {
             _exception.postValue(e)
         }
     }
