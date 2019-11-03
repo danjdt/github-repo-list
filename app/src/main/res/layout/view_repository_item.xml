@@ -56,6 +56,7 @@
                         android:ellipsize="end"
                         android:maxLines="2"
                         tool:text="Vivamus vel magna sit amet urna cursus fringilla. Etiam nec sem non nibh accumsan interdum sed id tellus. Nulla facilisi." />
+
             </LinearLayout>
 
             <LinearLayout

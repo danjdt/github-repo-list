@@ -1,5 +1,6 @@
 package com.danjdt.githubjavarepos.ui.repositories
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.danjdt.domain.entity.Repository
 import com.danjdt.githubjavarepos.R
 import com.danjdt.githubjavarepos.ui.core.ItemClickListener
+import com.danjdt.githubjavarepos.ui.pullrequests.PullRequestsActivity
+import com.danjdt.githubjavarepos.utils.KEY_REPOSITORY
 import com.danjdt.githubjavarepos.viewmodel.JavaRepositoriesViewModel
 import kotlinx.android.synthetic.main.activity_repositories.*
 import kotlinx.coroutines.CoroutineScope
@@ -162,6 +165,8 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope, ItemClickL
     }
 
     private fun openPullRequests(repository: Repository) {
-        Toast.makeText(this, repository.name, Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, PullRequestsActivity::class.java)
+        intent.putExtra(KEY_REPOSITORY, repository)
+        startActivity(intent)
     }
 }
