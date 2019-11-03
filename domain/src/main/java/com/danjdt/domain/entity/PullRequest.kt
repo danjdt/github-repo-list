@@ -1,7 +1,6 @@
 package com.danjdt.domain.entity
 
 import java.io.Serializable
-import java.util.*
 
 /**
  *  @autor danieljdt
@@ -9,7 +8,6 @@ import java.util.*
  **/
 data class PullRequest(
     val id: Long,
-    val createdAt: Date,
     val user: User,
     val title: String,
     val body: String,
