@@ -45,10 +45,14 @@ class JavaRepositoriesViewModel(private val interactor: FetchJavaRepositoriesInt
     }
 
     suspend fun refresh() {
-        page = 1
-         _repositories.postValue(null)
+        resetViewModel()
         fetchFirstPage()
      }
+
+    private fun resetViewModel() {
+        page = 1
+        _repositories.postValue(null)
+    }
 
     private fun incrementPage() {
         page++
