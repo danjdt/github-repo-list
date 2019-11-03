@@ -3,6 +3,7 @@ package com.danjdt.githubjavarepos.ui.repositories
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.danjdt.domain.entity.Repository
 import com.danjdt.githubjavarepos.R
+import com.danjdt.githubjavarepos.ui.core.ItemClickListener
 import com.danjdt.githubjavarepos.viewmodel.JavaRepositoriesViewModel
 import kotlinx.android.synthetic.main.activity_repositories.*
 import kotlinx.coroutines.CoroutineScope
@@ -22,7 +24,7 @@ import kotlin.coroutines.CoroutineContext
  *  @autor danieljdt
  *  @date 2019-11-01
  **/
-class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope {
+class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope, ItemClickListener<Repository> {
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
@@ -30,7 +32,7 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope {
     private val repositoriesViewModel: JavaRepositoriesViewModel by viewModel()
 
     private val adapter: RepositoryAdapter by lazy {
-        RepositoryAdapter()
+        RepositoryAdapter(this)
     }
 
     private val linearLayoutManager by lazy { LinearLayoutManager(this) }
@@ -71,6 +73,10 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope {
         setupListeners()
         setupObservers()
         fetchRepositories()
+    }
+
+    override fun onItemClicked(item: Repository) {
+        openPullRequests(item)
     }
 
     private fun fetchRepositories() {
@@ -153,5 +159,9 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope {
         } else {
             repositoriesRecyclerView.visibility = VISIBLE
         }
+    }
+
+    private fun openPullRequests(repository: Repository) {
+        Toast.makeText(this, repository.name, Toast.LENGTH_SHORT).show()
     }
 }
