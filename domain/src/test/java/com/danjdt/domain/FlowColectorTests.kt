@@ -1,6 +1,7 @@
 package com.danjdt.domain
 
-import com.danjdt.domain.mock.dummyPullRequestFlow
+import com.danjdt.domain.mock.dummyRepositoriesFlow
+import com.danjdt.domain.utils.assertRepositories
 import com.danjdt.domain.utils.collect
 import junit.framework.TestCase
 import kotlinx.coroutines.FlowPreview
@@ -14,17 +15,10 @@ class FlowColectorTests : TestCase() {
 
     @FlowPreview
     fun testValidateFlowCollectorReturnsData() = runBlocking {
-        val flow = dummyPullRequestFlow()
-        val data = collect(flow)!!
+        val flow = dummyRepositoriesFlow()
+        val list = collect(flow)!!
 
-        for (pullRequest in data) {
-            with(pullRequest) {
-                assertEquals(10, id)
-                assertEquals("Title", title)
-                assertEquals("Lorem ipsum dolor", body)
-                assertEquals("https://www.google.com/", htmlUrl)
-                assertNotNull(user)
-            }
-        }
+        assertNotNull(list)
+        assertRepositories(list)
     }
 }

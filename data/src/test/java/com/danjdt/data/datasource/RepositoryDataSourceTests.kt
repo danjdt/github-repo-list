@@ -3,6 +3,8 @@ package com.danjdt.data.datasource
 import com.danjdt.data.mock.GithubApiMock
 import com.danjdt.data.network.datasource.RepositoryDataSource
 import com.danjdt.data.network.datasource.RepositoryDataSourceImpl
+import com.danjdt.domain.utils.assertPullRequests
+import com.danjdt.domain.utils.assertRepositories
 import junit.framework.TestCase
 import kotlinx.coroutines.runBlocking
 
@@ -17,30 +19,14 @@ class RepositoryDataSourceTests : TestCase() {
     }
 
     fun testRepositoryDataSourceFetchRepositories() = runBlocking {
-        val response = repositoryDataSource.fetchJavaRepositories(1)
-
-        for (repository in response) {
-            with(repository) {
-                assertEquals(10, id)
-                assertEquals("Name", name)
-                assertEquals("Description", description)
-                assertEquals(500, forks)
-                assertEquals(1000, stargazersCount)
-                assertNotNull(owner)
-            }
-        }
+        val list = repositoryDataSource.fetchJavaRepositories(1)
+        assertNotNull(list)
+        assertRepositories(list)
     }
 
     fun testRepositoryDataSourceFetchPullRequests() = runBlocking {
-        val response = repositoryDataSource.fetchPullRequests("owner", "repository", 1)
-        for (pullRequest in response) {
-            with(pullRequest) {
-                assertEquals(10, id)
-                assertEquals("Title", title)
-                assertEquals("Lorem ipsum dolor", body)
-                assertEquals("https://www.google.com/", htmlUrl)
-                assertNotNull(user)
-            }
-        }
+        val list = repositoryDataSource.fetchPullRequests("owner", "repository", 1)
+        assertNotNull(list)
+        assertPullRequests(list)
     }
 }
