@@ -167,16 +167,20 @@ class PullRequestsActivityTests {
     }
 
     private fun assertErrorViewContent(errorView: ErrorView) {
-        assertEquals("Ops!", errorView.titleTextView.text)
+        val titleTextView : TextView = errorView.findViewById(R.id.titleTextView)
+        val messageTextView : TextView = errorView.findViewById(R.id.messageTextView)
+        assertEquals("Ops!", titleTextView.text)
         assertEquals(
             "Um erro inesperado aconteceu. Por favor tente novamente.",
-            errorView.messageTextView.text
+            messageTextView.text
         )
     }
 
     private fun assertEmptyViewContent(errorView: ErrorView) {
-        assertEquals("Ops!", errorView.titleTextView.text)
-        assertEquals("Nenhum item encontrado.", errorView.messageTextView.text)
+        val titleTextView : TextView = errorView.findViewById(R.id.titleTextView)
+        val messageTextView : TextView = errorView.findViewById(R.id.messageTextView)
+        assertEquals("Ops!", titleTextView.text)
+        assertEquals("Nenhum item encontrado.", messageTextView.text)
     }
 
     private fun scrollToRecyclerViewLastItem(recyclerView: RecyclerView) {
