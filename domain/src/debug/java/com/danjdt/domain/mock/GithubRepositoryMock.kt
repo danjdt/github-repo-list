@@ -1,5 +1,7 @@
 package com.danjdt.domain.mock
 
+import com.danjdt.domain.dummyPullRequestFlow
+import com.danjdt.domain.dummyRepositoriesFlow
 import com.danjdt.domain.entity.PullRequest
 import com.danjdt.domain.entity.Repository
 import com.danjdt.domain.repository.GithubRepository

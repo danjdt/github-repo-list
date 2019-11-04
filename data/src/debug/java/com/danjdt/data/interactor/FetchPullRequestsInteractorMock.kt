@@ -1,8 +1,8 @@
-package com.danjdt.githubjavarepos.mock.interactor
+package com.danjdt.data.interactor
 
 import com.danjdt.domain.entity.PullRequest
 import com.danjdt.domain.interactor.FetchPullRequestsInteractor
-import com.danjdt.githubjavarepos.mock.dummy.DUMMY_PULL_REQUESTS
+import com.danjdt.domain.DUMMY_PULL_REQUESTS
 
 /**
  *  @autor danieljdt

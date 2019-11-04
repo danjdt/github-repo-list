@@ -1,4 +1,4 @@
-package com.danjdt.domain.utils
+package com.danjdt.data.utils
 
 import com.danjdt.domain.entity.PullRequest
 import com.danjdt.domain.entity.Repository

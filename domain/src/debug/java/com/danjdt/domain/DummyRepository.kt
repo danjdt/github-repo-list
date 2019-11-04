@@ -1,4 +1,4 @@
-package com.danjdt.githubjavarepos.mock.dummy
+package com.danjdt.domain
 
 import com.danjdt.domain.entity.Repository
 import kotlinx.coroutines.FlowPreview
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flow
  **/
 val DUMMY_REPOSITORIES = run {
     val list = mutableListOf<Repository>()
-    for (i in 1..10) {
+    for (i in 1..30) {
         val repository = Repository(
             id = 10,
             name = "Name",
