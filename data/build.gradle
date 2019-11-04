@@ -41,7 +41,7 @@ dependencies {
 
     // Network
     implementation "com.squareup.retrofit2:retrofit:2.6.0"
-    implementation "com.squareup.retrofit2:converter-gson:2.4.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.6.0"
 
     // Koin
     implementation "org.koin:koin-androidx-scope:2.0.1"

@@ -5,6 +5,8 @@ import com.danjdt.data.network.GithubRepositoryImpl
 import com.danjdt.data.network.datasource.RepositoryDataSource
 import com.danjdt.data.network.datasource.RepositoryDataSourceImpl
 import com.danjdt.domain.repository.GithubRepository
+import com.danjdt.domain.utils.assertPullRequests
+import com.danjdt.domain.utils.assertRepositories
 import com.danjdt.domain.utils.collect
 import junit.framework.TestCase
 import kotlinx.coroutines.FlowPreview
@@ -34,33 +36,16 @@ class GithubRepositoryTest : TestCase() {
 
     fun testValidateFetchJavaRepositoriesSuccessReturnsRepositoriesList() = runBlocking {
         val flow = githubRepository.fetchJavaRepositories(1)
-        val response = collect(flow)!!
-
-        for (repository in response) {
-            with(repository) {
-                assertEquals(10, id)
-                assertEquals("Name", name)
-                assertEquals("Description", description)
-                assertEquals(500, forks)
-                assertEquals(1000, stargazersCount)
-                assertNotNull(owner)
-            }
-        }
+        val list = collect(flow)!!
+        assertNotNull(list)
+        assertRepositories(list)
     }
 
     fun testValidateFetchPullRequestsSuccessReturnsPullRequestsList() = runBlocking {
         val flow = githubRepository.fetchPullRequests("owner", "repository", 1)
-        val response = collect(flow)!!
-
-        for (pullRequest in response) {
-            with(pullRequest) {
-                assertEquals(10, id)
-                assertEquals("Title", title)
-                assertEquals("Lorem ipsum dolor", body)
-                assertEquals("https://www.google.com/", htmlUrl)
-                assertNotNull(user)
-            }
-        }
+        val list = collect(flow)!!
+        assertNotNull(list)
+        assertPullRequests(list)
     }
 
     fun testValidateFetchJavaRepositoriesSuccessErrorThrowsException() = runBlocking {
