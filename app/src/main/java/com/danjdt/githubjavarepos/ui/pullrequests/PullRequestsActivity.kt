@@ -31,7 +31,7 @@ class PullRequestsActivity : AppCompatActivity(), CoroutineScope, ItemClickListe
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
 
-    private val pullRequestsViewModel: PullRequestsViewModel by viewModel() { parametersOf(repository)}
+    private val pullRequestsViewModel: PullRequestsViewModel by viewModel { parametersOf(repository)}
 
     private val adapter: PullRequestAdapter by lazy {
         PullRequestAdapter(this)
