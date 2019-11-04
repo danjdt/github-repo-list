@@ -6,4 +6,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextAppearance.AppCompat.Small" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.AppCompat.Medium" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">20sp</item>
+    </style>
+
 </resources>
