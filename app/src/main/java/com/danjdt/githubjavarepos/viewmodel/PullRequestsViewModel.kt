@@ -19,6 +19,8 @@ class PullRequestsViewModel(
     private val repository: Repository
 ) : ViewModel() {
 
+    // region Private Properties
+
     private var page: Int = 1
 
     private val _pullRequests: MutableLiveData<List<PullRequest>> = MutableLiveData()
@@ -37,6 +39,10 @@ class PullRequestsViewModel(
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
+    // endregion
+
+    // region Public Methods
+
     suspend fun fetchFirstPage() {
         if (isFirstPage()) {
             showLoading()
@@ -54,6 +60,10 @@ class PullRequestsViewModel(
         fetchFirstPage()
     }
 
+    // endregion
+
+    // region Private Methods
+
     private fun resetViewModel() {
         page = 1
         _pullRequests.postValue(null)
@@ -61,10 +71,6 @@ class PullRequestsViewModel(
 
     private fun incrementPage() {
         page++
-    }
-
-    private fun createParams(): FetchPullRequestsInteractor.Params {
-        return FetchPullRequestsInteractor.Params(repository.owner.login, repository.name, page)
     }
 
     private fun isFirstPage(): Boolean {
@@ -88,7 +94,7 @@ class PullRequestsViewModel(
                 throw EmptyListException()
             }
 
-            if(response.size >= PAGE_LIMIT) {
+            if (response.size >= PAGE_LIMIT) {
                 _hasLoadMore.postValue(response.isNotEmpty())
             }
 
@@ -103,6 +109,11 @@ class PullRequestsViewModel(
         }
     }
 
+    private fun createParams(): FetchPullRequestsInteractor.Params {
+        return FetchPullRequestsInteractor.Params(repository.owner.login, repository.name, page)
+    }
+
+
     private fun isPullRequestsEmpty(): Boolean {
         return _pullRequests.value?.isEmpty() ?: true
     }
@@ -113,4 +124,5 @@ class PullRequestsViewModel(
         }
     }
 
+    // endregion
 }
