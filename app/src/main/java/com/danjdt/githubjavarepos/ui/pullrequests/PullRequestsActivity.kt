@@ -28,8 +28,14 @@ import kotlin.coroutines.CoroutineContext
  */
 class PullRequestsActivity : AppCompatActivity(), CoroutineScope, ItemClickListener<PullRequest> {
 
+    // region Public Properties
+
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
+
+    // endregion
+
+    // region Private Properties
 
     private val pullRequestsViewModel: PullRequestsViewModel by viewModel { parametersOf(repository)}
 
@@ -71,6 +77,10 @@ class PullRequestsActivity : AppCompatActivity(), CoroutineScope, ItemClickListe
         adapter.showLoading = hasLoadMore
     }
 
+    // endregion
+
+    // region Life Cycle
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pull_requests)
@@ -82,6 +92,10 @@ class PullRequestsActivity : AppCompatActivity(), CoroutineScope, ItemClickListe
         fetchRepositories()
     }
 
+    // endregion
+
+    // region Public Methods
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
@@ -90,6 +104,10 @@ class PullRequestsActivity : AppCompatActivity(), CoroutineScope, ItemClickListe
     override fun onItemClicked(item: PullRequest) {
         actionOpenUrl(item.htmlUrl)
     }
+
+    // endregion
+
+    // region Private Methods
 
     private fun fetchRepositories() {
         launch {
@@ -183,4 +201,6 @@ class PullRequestsActivity : AppCompatActivity(), CoroutineScope, ItemClickListe
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(browserIntent)
     }
+
+    // endregion
 }

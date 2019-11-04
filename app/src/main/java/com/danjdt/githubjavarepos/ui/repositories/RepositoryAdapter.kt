@@ -7,6 +7,8 @@ import com.danjdt.domain.entity.Repository
 import com.danjdt.githubjavarepos.R
 import com.danjdt.githubjavarepos.ui.core.ItemClickListener
 import com.danjdt.githubjavarepos.ui.core.LoadingViewHolder
+import com.danjdt.githubjavarepos.utils.LIST_ITEM
+import com.danjdt.githubjavarepos.utils.LOADING
 
 /**
  * @autor danieljdt
@@ -15,8 +17,7 @@ import com.danjdt.githubjavarepos.ui.core.LoadingViewHolder
 class RepositoryAdapter(val itemClickListener: ItemClickListener<Repository>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val ITEM_REPOSITORY = 1
-    private val LOADING = 2
+    // region Private Properties
 
     private var repositories: List<Repository> = ArrayList()
 
@@ -25,6 +26,10 @@ class RepositoryAdapter(val itemClickListener: ItemClickListener<Repository>) :
             field = value
             notifyDataSetChanged()
         }
+
+    // endregion
+
+    // region Public Methods
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -45,7 +50,7 @@ class RepositoryAdapter(val itemClickListener: ItemClickListener<Repository>) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position < repositories.size) ITEM_REPOSITORY else LOADING
+        return if (position < repositories.size) LIST_ITEM else LOADING
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -61,8 +66,5 @@ class RepositoryAdapter(val itemClickListener: ItemClickListener<Repository>) :
         notifyDataSetChanged()
     }
 
-    fun clear() {
-        repositories = ArrayList()
-        notifyDataSetChanged()
-    }
+    // endregion
 }
