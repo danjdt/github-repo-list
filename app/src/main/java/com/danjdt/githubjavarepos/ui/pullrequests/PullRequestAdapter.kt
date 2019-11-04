@@ -7,7 +7,6 @@ import com.danjdt.domain.entity.PullRequest
 import com.danjdt.githubjavarepos.R
 import com.danjdt.githubjavarepos.ui.core.ItemClickListener
 import com.danjdt.githubjavarepos.ui.core.LoadingViewHolder
-import com.danjdt.githubjavarepos.ui.repositories.RepositoryViewHolder
 
 /**
  * @autor danieljdt

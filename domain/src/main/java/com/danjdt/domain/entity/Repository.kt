@@ -1,7 +1,6 @@
 package com.danjdt.domain.entity
 
 import java.io.Serializable
-import java.util.*
 
 /**
  *  @autor danieljdt

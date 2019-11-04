@@ -24,16 +24,13 @@ import com.danjdt.githubjavarepos.di.pullRequestsModule
 import com.danjdt.githubjavarepos.di.repositoryModule
 import com.danjdt.githubjavarepos.mock.interactor.FetchJavaRepositoriesInteractorMock
 import com.danjdt.githubjavarepos.ui.core.ErrorView
-import com.danjdt.githubjavarepos.ui.pullrequests.PullRequestsActivity
 import com.danjdt.githubjavarepos.ui.repositories.JavaRepositoriesActivity
 import com.danjdt.githubjavarepos.ui.repositories.RepositoryViewHolder
-import com.danjdt.githubjavarepos.utils.clickChildViewWithId
 import com.danjdt.githubjavarepos.viewmodel.JavaRepositoriesViewModel
 import kotlinx.android.synthetic.main.activity_repositories.*
 import kotlinx.coroutines.FlowPreview
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -135,15 +132,6 @@ class JavaRepositoriesActivityTests {
         }
     }
 
-    private fun performClickAtItem() {
-        onView(withId(R.id.repositoriesRecyclerView)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<RepositoryViewHolder>(
-                0,
-                clickChildViewWithId(R.id.containerView)
-            )
-        )
-    }
-
     private fun assertItemViewContent(itemView: View) {
         val repositoryTextView: TextView = itemView.findViewById(R.id.repositoryTextView)
         val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
@@ -177,19 +165,6 @@ class JavaRepositoriesActivityTests {
                 recyclerView.adapter!!.itemCount - 1
             )
         )
-    }
-
-    private fun getCurrentActivity(): Activity? {
-        var currentActivity: Activity? = null
-        getInstrumentation().runOnMainSync {
-            run {
-                currentActivity =
-                    ActivityLifecycleMonitorRegistry.getInstance()
-                        .getActivitiesInStage(Stage.RESUMED)
-                        .elementAtOrNull(0)
-            }
-        }
-        return currentActivity
     }
 
     private fun setupKoin(context: Context) {

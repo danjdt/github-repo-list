@@ -1,5 +1,7 @@
 package com.danjdt.githubjavarepos.ui.pullrequests
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.danjdt.domain.entity.PullRequest
+import com.danjdt.githubjavarepos.R
 import com.danjdt.githubjavarepos.ui.core.DividerItemDecoration
 import com.danjdt.githubjavarepos.ui.core.ItemClickListener
 import com.danjdt.githubjavarepos.utils.KEY_REPOSITORY
@@ -18,9 +21,6 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import kotlin.coroutines.CoroutineContext
-import android.content.Intent
-import android.net.Uri
-import com.danjdt.githubjavarepos.R
 
 /**
  * @autor danieljdt
