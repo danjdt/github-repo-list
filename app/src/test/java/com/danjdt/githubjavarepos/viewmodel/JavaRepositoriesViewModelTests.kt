@@ -1,6 +1,9 @@
 package com.danjdt.githubjavarepos.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.danjdt.domain.exception.EmptyListException
+import com.danjdt.githubjavarepos.mock.DUMMY_PULL_REQUESTS
+import com.danjdt.githubjavarepos.mock.DUMMY_REPOSITORIES
 import com.danjdt.githubjavarepos.utils.assertRepositories
 import com.danjdt.githubjavarepos.mock.FetchJavaRepositoriesInteractorMock
 import junit.framework.Assert.*
@@ -29,6 +32,7 @@ class JavaRepositoriesViewModelTests {
     @After
     fun tearDown() {
         interactor.exception = null
+        interactor.list = DUMMY_REPOSITORIES
     }
 
     @Test
@@ -37,6 +41,18 @@ class JavaRepositoriesViewModelTests {
         val list = viewModel.repositories.value
         assertNotNull(list)
         assertRepositories(list!!)
+    }
+
+    @Test
+    fun testValidateViewModelThrowsExceptionOnFetchFirstPageEmpty() = runBlocking {
+        interactor.list = ArrayList()
+        viewModel.fetchFirstPage()
+
+        val list = viewModel.repositories.value
+        assertNull(list)
+
+        val exception = viewModel.exception.value
+        assertTrue(exception is EmptyListException)
     }
 
     @Test
@@ -57,6 +73,24 @@ class JavaRepositoriesViewModelTests {
         val list = viewModel.repositories.value
         assertNotNull(list)
         assertEquals(20, list!!.size)
+    }
+
+    @Test
+    fun testValidateViewModelDoNothingOnFetchNextPageEmpty() = runBlocking {
+        viewModel.fetchFirstPage()
+
+        val beforeList = viewModel.repositories.value
+
+        assertNotNull(beforeList)
+        assertEquals(10, beforeList!!.size)
+
+        interactor.list = ArrayList()
+        viewModel.fetchNextPage()
+
+        val afterList = viewModel.repositories.value
+
+        assertNotNull(afterList)
+        assertEquals(10, afterList!!.size)
     }
 
     @Test

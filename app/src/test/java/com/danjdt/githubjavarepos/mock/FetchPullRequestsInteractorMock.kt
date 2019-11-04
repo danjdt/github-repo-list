@@ -12,11 +12,12 @@ import com.danjdt.domain.interactor.FetchPullRequestsInteractor
 class FetchPullRequestsInteractorMock : FetchPullRequestsInteractor {
 
     var exception: Exception? = null
+    var list = DUMMY_PULL_REQUESTS
 
     override suspend fun execute(params: FetchPullRequestsInteractor.Params): List<PullRequest> {
         exception?.let {
             throw  it
-        } ?: return DUMMY_PULL_REQUESTS
+        } ?: return list
     }
 
 }

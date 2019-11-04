@@ -10,11 +10,12 @@ import com.danjdt.domain.interactor.FetchJavaRepositoriesInteractor
 class FetchJavaRepositoriesInteractorMock : FetchJavaRepositoriesInteractor {
 
     var exception: Exception? = null
+    var list = DUMMY_REPOSITORIES
 
     override suspend fun execute(params: FetchJavaRepositoriesInteractor.Params): List<Repository> {
         exception?.let {
             throw  it
-        } ?: return DUMMY_REPOSITORIES
+        } ?: return list
     }
 
 }

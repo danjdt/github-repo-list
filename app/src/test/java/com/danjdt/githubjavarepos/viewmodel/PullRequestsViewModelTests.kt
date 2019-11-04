@@ -1,6 +1,8 @@
 package com.danjdt.githubjavarepos.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.danjdt.domain.exception.EmptyListException
+import com.danjdt.githubjavarepos.mock.DUMMY_PULL_REQUESTS
 import com.danjdt.githubjavarepos.mock.DUMMY_REPOSITORY
 import com.danjdt.githubjavarepos.utils.assertRepositories
 import com.danjdt.githubjavarepos.mock.FetchJavaRepositoriesInteractorMock
@@ -32,14 +34,29 @@ class PullRequestsViewModelTests {
     @After
     fun tearDown() {
         interactor.exception = null
+        interactor.list = DUMMY_PULL_REQUESTS
     }
 
     @Test
     fun testValidateViewModelStateOnFetchFirstPageSuccess() = runBlocking {
         viewModel.fetchFirstPage()
+
         val list = viewModel.pullRequests.value
+
         assertNotNull(list)
         assertPullRequests(list!!)
+    }
+
+    @Test
+    fun testValidateViewModelThrowsExceptionOnFetchFirstPageEmpty() = runBlocking {
+        interactor.list = ArrayList()
+        viewModel.fetchFirstPage()
+
+        val list = viewModel.pullRequests.value
+        assertNull(list)
+
+        val exception = viewModel.exception.value
+        assertTrue(exception is EmptyListException)
     }
 
     @Test
@@ -49,6 +66,7 @@ class PullRequestsViewModelTests {
         viewModel.fetchFirstPage()
 
         val exception = viewModel.exception.value
+
         assertNotNull(exception)
         assertEquals(e, exception)
     }
@@ -57,16 +75,39 @@ class PullRequestsViewModelTests {
     fun testValidateViewModelStateOnFetchNextPageSuccess() = runBlocking {
         viewModel.fetchFirstPage()
         viewModel.fetchNextPage()
+
         val list = viewModel.pullRequests.value
+
         assertNotNull(list)
         assertEquals(20, list!!.size)
     }
 
     @Test
+    fun testValidateViewModelDoNothingOnFetchNextPageEmpty() = runBlocking {
+        viewModel.fetchFirstPage()
+
+        val beforeList = viewModel.pullRequests.value
+
+        assertNotNull(beforeList)
+        assertEquals(10, beforeList!!.size)
+
+        interactor.list = ArrayList()
+        viewModel.fetchNextPage()
+
+        val afterList = viewModel.pullRequests.value
+
+        assertNotNull(afterList)
+        assertEquals(10, afterList!!.size)
+    }
+
+    @Test
     fun testValidateViewModelStateOnFetchNextPageFail() = runBlocking {
         val e = Exception()
+
         viewModel.fetchFirstPage()
+
         interactor.exception = e
+
         viewModel.fetchNextPage()
 
         val exception = viewModel.exception.value
@@ -83,6 +124,7 @@ class PullRequestsViewModelTests {
         assertEquals(20, beforeRefreshList!!.size)
 
         viewModel.refresh()
+
         val afterRefreshList = viewModel.pullRequests.value
         assertNotNull(afterRefreshList)
         assertEquals(10, afterRefreshList!!.size)
