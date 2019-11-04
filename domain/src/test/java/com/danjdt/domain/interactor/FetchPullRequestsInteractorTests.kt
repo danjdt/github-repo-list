@@ -2,7 +2,6 @@ package com.danjdt.domain.interactor
 
 import com.danjdt.domain.mock.GithubRepositoryMock
 import com.danjdt.domain.utils.assertPullRequests
-import com.danjdt.domain.utils.assertRepositories
 import junit.framework.TestCase
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.runBlocking

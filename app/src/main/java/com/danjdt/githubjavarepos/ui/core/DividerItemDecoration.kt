@@ -1,13 +1,13 @@
 package com.danjdt.githubjavarepos.ui.core
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
-import androidx.core.content.ContextCompat
 import android.graphics.Canvas
-import android.graphics.drawable.Drawable
-import com.danjdt.githubjavarepos.R
 import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.danjdt.githubjavarepos.R
 
 
 /**
