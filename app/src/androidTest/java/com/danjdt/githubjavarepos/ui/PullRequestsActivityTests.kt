@@ -18,12 +18,12 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
+import com.danjdt.data.interactor.FetchPullRequestsInteractorMock
+import com.danjdt.domain.DUMMY_REPOSITORY
 import com.danjdt.githubjavarepos.R
 import com.danjdt.githubjavarepos.di.networkModule
 import com.danjdt.githubjavarepos.di.repositoriesModule
 import com.danjdt.githubjavarepos.di.repositoryModule
-import com.danjdt.githubjavarepos.mock.dummy.DUMMY_REPOSITORY
-import com.danjdt.githubjavarepos.mock.interactor.FetchPullRequestsInteractorMock
 import com.danjdt.githubjavarepos.ui.core.ErrorView
 import com.danjdt.githubjavarepos.ui.pullrequests.PullRequestViewHolder
 import com.danjdt.githubjavarepos.ui.pullrequests.PullRequestsActivity
@@ -115,11 +115,11 @@ class PullRequestsActivityTests {
     fun testViewStateOnFetchNextSuccess() {
         activityRule.launchActivity(Intent())
         with(activityRule.activity) {
-            assertEquals(11, pullRequestRecyclerView.adapter?.itemCount ?: 0)
+            assertEquals(31, pullRequestRecyclerView.adapter?.itemCount ?: 0)
 
             scrollToRecyclerViewLastItem(pullRequestRecyclerView)
 
-            assertEquals(21, pullRequestRecyclerView.adapter?.itemCount ?: 0)
+            assertEquals(61, pullRequestRecyclerView.adapter?.itemCount ?: 0)
         }
     }
 
@@ -127,12 +127,12 @@ class PullRequestsActivityTests {
     fun testViewStateOnFetchNextFail() {
         activityRule.launchActivity(Intent())
         with(activityRule.activity) {
-            assertEquals(11, pullRequestRecyclerView.adapter?.itemCount ?: 0)
+            assertEquals(31, pullRequestRecyclerView.adapter?.itemCount ?: 0)
 
             interactor.exception = Exception()
             scrollToRecyclerViewLastItem(pullRequestRecyclerView)
 
-            assertEquals(11, pullRequestRecyclerView.adapter?.itemCount ?: 0)
+            assertEquals(31, pullRequestRecyclerView.adapter?.itemCount ?: 0)
         }
     }
 
@@ -209,6 +209,7 @@ class PullRequestsActivityTests {
                 }
             }))
         } catch (e: Exception) {
+            throw e
         }
     }
 }

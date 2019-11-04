@@ -7,6 +7,7 @@ import com.danjdt.domain.entity.Repository
 import com.danjdt.domain.exception.EmptyListException
 import com.danjdt.domain.interactor.FetchJavaRepositoriesInteractor
 import com.danjdt.githubjavarepos.extensions.add
+import com.danjdt.githubjavarepos.utils.PAGE_LIMIT
 
 /**
  *  @autor danieljdt
@@ -84,11 +85,14 @@ class JavaRepositoriesViewModel(private val interactor: FetchJavaRepositoriesInt
                 throw EmptyListException()
             }
 
+            if(response.size >= PAGE_LIMIT) {
+                _hasLoadMore.postValue(response.isNotEmpty())
+            }
+
             with(_repositories) {
                 postValue(value?.add(response) ?: response)
             }
 
-            _hasLoadMore.postValue(response.isNotEmpty())
             incrementPage()
 
         } catch (e: Exception) {

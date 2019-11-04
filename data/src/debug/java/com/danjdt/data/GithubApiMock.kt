@@ -1,7 +1,9 @@
-package com.danjdt.data.mock
+package com.danjdt.data
 
+import com.danjdt.data.mock.DUMMY_REPOSITORIES_RESPONSE
 import com.danjdt.data.network.GithubApi
 import com.danjdt.data.network.response.RepositoriesReponse
+import com.danjdt.domain.DUMMY_PULL_REQUESTS
 import com.danjdt.domain.entity.PullRequest
 
 /**

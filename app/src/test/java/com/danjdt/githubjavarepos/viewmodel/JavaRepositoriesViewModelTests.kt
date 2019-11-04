@@ -1,10 +1,10 @@
 package com.danjdt.githubjavarepos.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.danjdt.data.interactor.FetchJavaRepositoriesInteractorMock
 import com.danjdt.domain.exception.EmptyListException
-import com.danjdt.githubjavarepos.mock.DUMMY_REPOSITORIES
+import com.danjdt.domain.DUMMY_REPOSITORIES
 import com.danjdt.githubjavarepos.utils.assertRepositories
-import com.danjdt.githubjavarepos.mock.FetchJavaRepositoriesInteractorMock
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.*
@@ -71,7 +71,7 @@ class JavaRepositoriesViewModelTests {
         viewModel.fetchNextPage()
         val list = viewModel.repositories.value
         assertNotNull(list)
-        assertEquals(20, list!!.size)
+        assertEquals(60, list!!.size)
     }
 
     @Test
@@ -81,7 +81,7 @@ class JavaRepositoriesViewModelTests {
         val beforeList = viewModel.repositories.value
 
         assertNotNull(beforeList)
-        assertEquals(10, beforeList!!.size)
+        assertEquals(30, beforeList!!.size)
 
         interactor.list = ArrayList()
         viewModel.fetchNextPage()
@@ -89,7 +89,7 @@ class JavaRepositoriesViewModelTests {
         val afterList = viewModel.repositories.value
 
         assertNotNull(afterList)
-        assertEquals(10, afterList!!.size)
+        assertEquals(30, afterList!!.size)
     }
 
     @Test
@@ -110,12 +110,12 @@ class JavaRepositoriesViewModelTests {
 
         val beforeRefreshList = viewModel.repositories.value
         assertNotNull(beforeRefreshList)
-        assertEquals(20, beforeRefreshList!!.size)
+        assertEquals(60, beforeRefreshList!!.size)
 
         viewModel.refresh()
         val afterRefreshList = viewModel.repositories.value
         assertNotNull(afterRefreshList)
-        assertEquals(10, afterRefreshList!!.size)
+        assertEquals(30, afterRefreshList!!.size)
     }
 
     @Test

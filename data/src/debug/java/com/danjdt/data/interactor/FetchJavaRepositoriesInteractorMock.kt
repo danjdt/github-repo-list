@@ -1,8 +1,8 @@
-package com.danjdt.githubjavarepos.mock.interactor
+package com.danjdt.data.interactor
 
 import com.danjdt.domain.entity.Repository
 import com.danjdt.domain.interactor.FetchJavaRepositoriesInteractor
-import com.danjdt.githubjavarepos.mock.dummy.DUMMY_REPOSITORIES
+import com.danjdt.domain.DUMMY_REPOSITORIES
 
 /**
  *  @autor danieljdt

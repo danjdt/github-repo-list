@@ -1,6 +1,7 @@
 package com.danjdt.data.mock
 
 import com.danjdt.data.network.response.RepositoriesReponse
+import com.danjdt.domain.DUMMY_REPOSITORIES
 
 /**
  * @autor danieljdt
