@@ -1,4 +1,4 @@
-package com.danjdt.domain.mock
+package com.danjdt.domain
 
 import com.danjdt.domain.entity.PullRequest
 import kotlinx.coroutines.FlowPreview
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flow
  **/
 val DUMMY_PULL_REQUESTS = run {
     val list = mutableListOf<PullRequest>()
-    for (i in 1..10) {
+    for (i in 1..30) {
         val pullRequest = PullRequest(
             id = 10,
             user = DUMMY_USER,

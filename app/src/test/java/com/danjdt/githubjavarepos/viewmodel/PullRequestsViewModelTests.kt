@@ -1,14 +1,14 @@
 package com.danjdt.githubjavarepos.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.danjdt.data.interactor.FetchPullRequestsInteractorMock
 import com.danjdt.domain.exception.EmptyListException
-import com.danjdt.githubjavarepos.mock.DUMMY_PULL_REQUESTS
-import com.danjdt.githubjavarepos.mock.DUMMY_REPOSITORY
-import com.danjdt.githubjavarepos.mock.FetchPullRequestsInteractorMock
+import com.danjdt.domain.DUMMY_PULL_REQUESTS
+import com.danjdt.domain.DUMMY_REPOSITORY
 import com.danjdt.githubjavarepos.utils.assertPullRequests
-import org.junit.Assert.*
 import kotlinx.coroutines.runBlocking
 import org.junit.After
+import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 
@@ -77,7 +77,7 @@ class PullRequestsViewModelTests {
         val list = viewModel.pullRequests.value
 
         assertNotNull(list)
-        assertEquals(20, list!!.size)
+        assertEquals(60, list!!.size)
     }
 
     @Test
@@ -87,7 +87,7 @@ class PullRequestsViewModelTests {
         val beforeList = viewModel.pullRequests.value
 
         assertNotNull(beforeList)
-        assertEquals(10, beforeList!!.size)
+        assertEquals(30, beforeList!!.size)
 
         interactor.list = ArrayList()
         viewModel.fetchNextPage()
@@ -95,7 +95,7 @@ class PullRequestsViewModelTests {
         val afterList = viewModel.pullRequests.value
 
         assertNotNull(afterList)
-        assertEquals(10, afterList!!.size)
+        assertEquals(30, afterList!!.size)
     }
 
     @Test
@@ -119,13 +119,13 @@ class PullRequestsViewModelTests {
 
         val beforeRefreshList = viewModel.pullRequests.value
         assertNotNull(beforeRefreshList)
-        assertEquals(20, beforeRefreshList!!.size)
+        assertEquals(60, beforeRefreshList!!.size)
 
         viewModel.refresh()
 
         val afterRefreshList = viewModel.pullRequests.value
         assertNotNull(afterRefreshList)
-        assertEquals(10, afterRefreshList!!.size)
+        assertEquals(30, afterRefreshList!!.size)
     }
 
     @Test

@@ -1,4 +1,4 @@
-package com.danjdt.githubjavarepos.mock
+package com.danjdt.domain
 
 import com.danjdt.domain.entity.User
 

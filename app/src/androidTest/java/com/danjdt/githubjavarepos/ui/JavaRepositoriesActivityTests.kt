@@ -1,6 +1,5 @@
 package com.danjdt.githubjavarepos.ui
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
@@ -14,15 +13,12 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
-import androidx.test.runner.lifecycle.Stage
+import com.danjdt.data.interactor.FetchJavaRepositoriesInteractorMock
 import com.danjdt.githubjavarepos.R
 import com.danjdt.githubjavarepos.di.networkModule
 import com.danjdt.githubjavarepos.di.pullRequestsModule
 import com.danjdt.githubjavarepos.di.repositoryModule
-import com.danjdt.githubjavarepos.mock.interactor.FetchJavaRepositoriesInteractorMock
 import com.danjdt.githubjavarepos.ui.core.ErrorView
 import com.danjdt.githubjavarepos.ui.repositories.JavaRepositoriesActivity
 import com.danjdt.githubjavarepos.ui.repositories.RepositoryViewHolder
@@ -111,11 +107,11 @@ class JavaRepositoriesActivityTests {
     fun testViewStateOnFetchNextSuccess() {
         activityRule.launchActivity(Intent())
         with(activityRule.activity) {
-            assertEquals(11, repositoriesRecyclerView.adapter?.itemCount ?: 0)
+            assertEquals(31, repositoriesRecyclerView.adapter?.itemCount ?: 0)
 
             scrollToRecyclerViewLastItem(repositoriesRecyclerView)
 
-            assertEquals(21, repositoriesRecyclerView.adapter?.itemCount ?: 0)
+            assertEquals(61, repositoriesRecyclerView.adapter?.itemCount ?: 0)
         }
     }
 
@@ -123,12 +119,12 @@ class JavaRepositoriesActivityTests {
     fun testViewStateOnFetchNextFail() {
         activityRule.launchActivity(Intent())
         with(activityRule.activity) {
-            assertEquals(11, repositoriesRecyclerView.adapter?.itemCount ?: 0)
+            assertEquals(31, repositoriesRecyclerView.adapter?.itemCount ?: 0)
 
             interactor.exception = Exception()
             scrollToRecyclerViewLastItem(repositoriesRecyclerView)
 
-            assertEquals(11, repositoriesRecyclerView.adapter?.itemCount ?: 0)
+            assertEquals(31, repositoriesRecyclerView.adapter?.itemCount ?: 0)
         }
     }
 
@@ -179,6 +175,7 @@ class JavaRepositoriesActivityTests {
                 }
             }))
         } catch (e: Exception) {
+            throw e
         }
     }
 }

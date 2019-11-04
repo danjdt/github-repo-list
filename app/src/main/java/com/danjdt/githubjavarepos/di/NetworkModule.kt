@@ -41,7 +41,7 @@ fun provideRetrofit(client: OkHttpClient): Retrofit {
 fun provideGithubApi(retrofit: Retrofit): GithubApi = retrofit.create(GithubApi::class.java)
 
 fun provideHttpClient(context: Context): OkHttpClient {
-    val cacheSize = 5L * 1024 * 1024
+    val cacheSize = 20L * 1024 * 1024
     val cache = Cache(context.cacheDir, cacheSize)
     return OkHttpClient.Builder()
         .cache(cache)
@@ -56,13 +56,13 @@ private fun createCacheControlInterceptor(context: Context): Interceptor {
         if (!context.hasNetwork) {
             request = request.newBuilder().header(
                 "Cache-Control",
-                "public, only-if-cached"
+                "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7
             ).build()
         }
 
         val response = chain.proceed(request)
         response.newBuilder()
-            .header("Cache-Control", "public, max-age=" + 7 * 60 * 60 * 24)
+            .header("Cache-Control", "public, max-age=" + 60 * 60)
             .build()
     }
 }

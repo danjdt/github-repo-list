@@ -1,10 +1,10 @@
 package com.danjdt.data.datasource
 
-import com.danjdt.data.mock.GithubApiMock
+import com.danjdt.data.GithubApiMock
 import com.danjdt.data.network.datasource.RepositoryDataSource
 import com.danjdt.data.network.datasource.RepositoryDataSourceImpl
-import com.danjdt.domain.utils.assertPullRequests
-import com.danjdt.domain.utils.assertRepositories
+import com.danjdt.data.utils.assertPullRequests
+import com.danjdt.data.utils.assertRepositories
 import junit.framework.TestCase
 import kotlinx.coroutines.runBlocking
 
