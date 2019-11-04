@@ -1,6 +1,8 @@
 package com.danjdt.domain.interactor
 
 import com.danjdt.domain.mock.GithubRepositoryMock
+import com.danjdt.domain.utils.assertPullRequests
+import com.danjdt.domain.utils.assertRepositories
 import junit.framework.TestCase
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.runBlocking
@@ -20,14 +22,8 @@ class FetchPullRequestsInteractorTests : TestCase() {
         val params = FetchPullRequestsInteractor.Params("owner", "repository", 1)
         val list = fetchPullRequestsInteractor.execute(params)
 
-        for (pullRequest in list) {
-            with(pullRequest) {
-                assertEquals(10, id)
-                assertEquals("Title", title)
-                assertEquals("Lorem ipsum dolor", body)
-                assertEquals("https://www.google.com/", htmlUrl)
-                assertNotNull(user)
-            }
-        }
+
+        assertNotNull(list)
+        assertPullRequests(list)
     }
 }
