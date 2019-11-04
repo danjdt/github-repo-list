@@ -28,7 +28,7 @@ import com.danjdt.githubjavarepos.ui.core.ErrorView
 import com.danjdt.githubjavarepos.ui.pullrequests.PullRequestViewHolder
 import com.danjdt.githubjavarepos.ui.pullrequests.PullRequestsActivity
 import com.danjdt.githubjavarepos.utils.clickChildViewWithId
-import com.danjdt.githubjavarepos.viewmodel.PullRequestsViewModel
+import com.danjdt.githubjavarepos.ui.pullrequests.PullRequestsViewModel
 import kotlinx.android.synthetic.main.activity_pull_requests.*
 import kotlinx.android.synthetic.main.activity_repositories.errorView
 import kotlinx.coroutines.FlowPreview
@@ -209,7 +209,10 @@ class PullRequestsActivityTests {
         try {
             loadKoinModules(listOf(repositoriesModule, networkModule, repositoryModule, module {
                 viewModel {
-                    PullRequestsViewModel(interactor, DUMMY_REPOSITORY)
+                    PullRequestsViewModel(
+                        interactor,
+                        DUMMY_REPOSITORY
+                    )
                 }
             }))
         } catch (e: Exception) {

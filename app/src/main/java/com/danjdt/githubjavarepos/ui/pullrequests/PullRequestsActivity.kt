@@ -13,7 +13,6 @@ import com.danjdt.githubjavarepos.R
 import com.danjdt.githubjavarepos.ui.core.DividerItemDecoration
 import com.danjdt.githubjavarepos.ui.core.ItemClickListener
 import com.danjdt.githubjavarepos.utils.KEY_REPOSITORY
-import com.danjdt.githubjavarepos.viewmodel.PullRequestsViewModel
 import kotlinx.android.synthetic.main.activity_pull_requests.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +36,7 @@ class PullRequestsActivity : AppCompatActivity(), CoroutineScope, ItemClickListe
 
     // region Private Properties
 
-    private val pullRequestsViewModel: PullRequestsViewModel by viewModel { parametersOf(repository)}
+    private val pullRequestsViewModel: PullRequestsViewModel by viewModel { parametersOf(repository) }
 
     private val adapter: PullRequestAdapter by lazy {
         PullRequestAdapter(this)
@@ -47,7 +46,9 @@ class PullRequestsActivity : AppCompatActivity(), CoroutineScope, ItemClickListe
         intent.getSerializableExtra(KEY_REPOSITORY)
     }
 
-    private val linearLayoutManager by lazy { LinearLayoutManager(this) }
+    private val linearLayoutManager by lazy {
+        LinearLayoutManager(this)
+    }
 
     private val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

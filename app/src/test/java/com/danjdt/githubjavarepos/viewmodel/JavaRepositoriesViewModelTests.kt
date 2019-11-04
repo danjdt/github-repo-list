@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.danjdt.data.interactor.FetchJavaRepositoriesInteractorMock
 import com.danjdt.domain.exception.EmptyListException
 import com.danjdt.domain.DUMMY_REPOSITORIES
+import com.danjdt.githubjavarepos.ui.repositories.JavaRepositoriesViewModel
 import com.danjdt.githubjavarepos.utils.assertRepositories
 import kotlinx.coroutines.runBlocking
 import org.junit.After
