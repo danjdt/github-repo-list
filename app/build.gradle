@@ -16,7 +16,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.danjdt.githubjavarepos.TestAppJUnitRunner"
 
         buildConfigField STRING, API_URL, '"https://api.github.com/"'
     }
@@ -67,4 +67,9 @@ dependencies {
     testImplementation 'android.arch.core:core-testing:1.1.1'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'android.arch.core:core-testing:1.1.1'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+
 }

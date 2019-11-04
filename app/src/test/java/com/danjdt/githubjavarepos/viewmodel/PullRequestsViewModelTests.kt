@@ -4,11 +4,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.danjdt.domain.exception.EmptyListException
 import com.danjdt.githubjavarepos.mock.DUMMY_PULL_REQUESTS
 import com.danjdt.githubjavarepos.mock.DUMMY_REPOSITORY
-import com.danjdt.githubjavarepos.utils.assertRepositories
-import com.danjdt.githubjavarepos.mock.FetchJavaRepositoriesInteractorMock
 import com.danjdt.githubjavarepos.mock.FetchPullRequestsInteractorMock
 import com.danjdt.githubjavarepos.utils.assertPullRequests
-import junit.framework.Assert.*
+import org.junit.Assert.*
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Rule
