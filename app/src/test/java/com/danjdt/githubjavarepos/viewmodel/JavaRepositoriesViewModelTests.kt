@@ -2,13 +2,12 @@ package com.danjdt.githubjavarepos.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.danjdt.domain.exception.EmptyListException
-import com.danjdt.githubjavarepos.mock.DUMMY_PULL_REQUESTS
 import com.danjdt.githubjavarepos.mock.DUMMY_REPOSITORIES
 import com.danjdt.githubjavarepos.utils.assertRepositories
 import com.danjdt.githubjavarepos.mock.FetchJavaRepositoriesInteractorMock
-import junit.framework.Assert.*
 import kotlinx.coroutines.runBlocking
 import org.junit.After
+import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 
