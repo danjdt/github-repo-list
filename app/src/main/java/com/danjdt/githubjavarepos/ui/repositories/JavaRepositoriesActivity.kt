@@ -14,7 +14,6 @@ import com.danjdt.githubjavarepos.R
 import com.danjdt.githubjavarepos.ui.core.ItemClickListener
 import com.danjdt.githubjavarepos.ui.pullrequests.PullRequestsActivity
 import com.danjdt.githubjavarepos.utils.KEY_REPOSITORY
-import com.danjdt.githubjavarepos.viewmodel.JavaRepositoriesViewModel
 import kotlinx.android.synthetic.main.activity_repositories.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +25,8 @@ import kotlin.coroutines.CoroutineContext
  *  @autor danieljdt
  *  @date 2019-11-01
  **/
-class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope, ItemClickListener<Repository> {
+class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope,
+    ItemClickListener<Repository> {
 
     // region Public Properties
 
@@ -43,7 +43,9 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope, ItemClickL
         RepositoryAdapter(this)
     }
 
-    private val linearLayoutManager by lazy { LinearLayoutManager(this) }
+    private val linearLayoutManager by lazy {
+        LinearLayoutManager(this)
+    }
 
     private val scrollListener = object : OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -134,7 +136,7 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope, ItemClickL
         repositoriesViewModel.repositories.observe(this, repositoriesObserver)
         repositoriesViewModel.isLoading.observe(this, isLoadingObserver)
         repositoriesViewModel.hasLoadMore.observe(this, hasLoadMoreObserver)
-        repositoriesViewModel.exception.observe(this, Observer {exception  ->
+        repositoriesViewModel.exception.observe(this, Observer { exception ->
             displayError(exception)
         })
     }
