@@ -7,6 +7,8 @@ import com.danjdt.domain.entity.PullRequest
 import com.danjdt.githubjavarepos.R
 import com.danjdt.githubjavarepos.ui.core.ItemClickListener
 import com.danjdt.githubjavarepos.ui.core.LoadingViewHolder
+import com.danjdt.githubjavarepos.utils.LIST_ITEM
+import com.danjdt.githubjavarepos.utils.LOADING
 
 /**
  * @autor danieljdt
@@ -15,8 +17,7 @@ import com.danjdt.githubjavarepos.ui.core.LoadingViewHolder
 class PullRequestAdapter(private val itemClickListener: ItemClickListener<PullRequest>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val ITEM_PULL_REQUEST = 1
-    private val LOADING = 2
+    // region Private Properties
 
     private var pullRequests: List<PullRequest> = ArrayList()
 
@@ -25,6 +26,10 @@ class PullRequestAdapter(private val itemClickListener: ItemClickListener<PullRe
             field = value
             notifyDataSetChanged()
         }
+
+    // endregion
+
+    // region Public Methods
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -45,7 +50,7 @@ class PullRequestAdapter(private val itemClickListener: ItemClickListener<PullRe
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position < pullRequests.size) ITEM_PULL_REQUEST else LOADING
+        return if (position < pullRequests.size) LIST_ITEM else LOADING
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -61,8 +66,5 @@ class PullRequestAdapter(private val itemClickListener: ItemClickListener<PullRe
         notifyDataSetChanged()
     }
 
-    fun clear() {
-        pullRequests = ArrayList()
-        notifyDataSetChanged()
-    }
+    // endregion
 }

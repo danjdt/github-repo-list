@@ -19,20 +19,25 @@ import retrofit2.HttpException
 @Suppress("DEPRECATION")
 class ErrorView : FrameLayout {
 
-    lateinit var view: View
+    // region Private Properties
 
-    val errorImageView: ImageView by lazy {
+    private lateinit var view: View
+
+    private val errorImageView: ImageView by lazy {
         view.findViewById<ImageView>(R.id.errorImageView)
     }
 
-    val titleTextView: TextView by lazy {
+    private val titleTextView: TextView by lazy {
         view.findViewById<TextView>(R.id.titleTextView)
     }
 
-    val messageTextView: TextView by lazy {
+    private val messageTextView: TextView by lazy {
         view.findViewById<TextView>(R.id.messageTextView)
     }
 
+    // endregion
+
+    // region Constructor
 
     constructor(context: Context) : super(context) {
         setup()
@@ -47,13 +52,12 @@ class ErrorView : FrameLayout {
         setup()
     }
 
-    private fun setup() {
-        view = LayoutInflater.from(context).inflate(R.layout.view_error, this, true)
-    }
+    // endregion
+
+    // region Public Methods
 
     fun displayError(e: Exception?) {
         e?.let {
-            show()
             if (!context.hasNetwork) {
                 displayNetworkError()
                 return
@@ -68,6 +72,14 @@ class ErrorView : FrameLayout {
         } ?: hide()
     }
 
+    // endregion
+
+    // region Private Methods
+
+    private fun setup() {
+        view = LayoutInflater.from(context).inflate(R.layout.view_error, this, true)
+    }
+
     private fun show() {
         visibility = VISIBLE
     }
@@ -76,28 +88,33 @@ class ErrorView : FrameLayout {
         visibility = GONE
     }
 
-
     private fun displayEmptyListError(e: EmptyListException) {
         errorImageView.setImageDrawable(context.resources.getDrawable(R.drawable.ic_list))
         titleTextView.text = context.getString(R.string.ops)
         messageTextView.text = context.getString(R.string.message_empty)
+        show()
     }
 
     private fun displayNetworkError() {
         errorImageView.setImageDrawable(context.resources.getDrawable(R.drawable.ic_wifi))
         titleTextView.text = context.getString(R.string.network_error)
         messageTextView.text = context.getString(R.string.message_network_error)
+        show()
     }
 
     private fun displayHttpError(e: HttpException) {
         errorImageView.setImageDrawable(context.resources.getDrawable(R.drawable.ic_error))
         titleTextView.text = context.getString(R.string.error_x, e.code())
         messageTextView.text = e.message
+        show()
     }
 
     private fun displayGenericError() {
         errorImageView.setImageDrawable(context.resources.getDrawable(R.drawable.ic_error))
         titleTextView.text = context.getString(R.string.ops)
         messageTextView.text = context.getString(R.string.message_generic_error)
+        show()
     }
+
+    // endregion
 }

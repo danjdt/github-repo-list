@@ -16,6 +16,8 @@ import com.danjdt.githubjavarepos.utils.PAGE_LIMIT
 class JavaRepositoriesViewModel(private val interactor: FetchJavaRepositoriesInteractor) :
     ViewModel() {
 
+    // region Private Properties
+
     private var page: Int = 1
 
     private val _repositories: MutableLiveData<List<Repository>> = MutableLiveData()
@@ -34,6 +36,10 @@ class JavaRepositoriesViewModel(private val interactor: FetchJavaRepositoriesInt
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
+    // endregion
+
+    // region Public Methods
+
     suspend fun fetchFirstPage() {
         if (isFirstPage()) {
             showLoading()
@@ -50,6 +56,10 @@ class JavaRepositoriesViewModel(private val interactor: FetchJavaRepositoriesInt
         resetViewModel()
         fetchFirstPage()
     }
+
+    // endregion
+
+    // region Private Methods
 
     private fun resetViewModel() {
         page = 1
@@ -109,4 +119,6 @@ class JavaRepositoriesViewModel(private val interactor: FetchJavaRepositoriesInt
             _exception.postValue(e)
         }
     }
+
+    // endregion
 }

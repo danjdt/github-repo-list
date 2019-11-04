@@ -17,13 +17,23 @@ import com.danjdt.githubjavarepos.R
 class DividerItemDecoration(context: Context, resId: Int = R.drawable.drawable_divider_inset) :
     RecyclerView.ItemDecoration() {
 
+    // region Private Properties
+
     private val divider: Drawable
     private val defaultDivider: Drawable =
         ContextCompat.getDrawable(context, R.drawable.drawable_divider_full)!!
 
+    // endregion
+
+    // region Init
+
     init {
         divider = ContextCompat.getDrawable(context, resId) ?: defaultDivider
     }
+
+    // endregion
+
+    // region Public Methods
 
     override fun getItemOffsets(rect: Rect, v: View, parent: RecyclerView, s: RecyclerView.State) {
         val pos = parent.getChildAdapterPosition(v)
@@ -47,6 +57,10 @@ class DividerItemDecoration(context: Context, resId: Int = R.drawable.drawable_d
         }
     }
 
+    // endregion
+
+    // region Private Methods
+
     private fun drawDivider(defaultDivider: Drawable, child: View, parent: RecyclerView, canvas: Canvas) {
         val params = child.layoutParams as RecyclerView.LayoutParams
         val dividerLeft = parent.paddingLeft
@@ -56,4 +70,6 @@ class DividerItemDecoration(context: Context, resId: Int = R.drawable.drawable_d
         defaultDivider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
         defaultDivider.draw(canvas)
     }
+
+    // endregion
 }

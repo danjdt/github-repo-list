@@ -28,8 +28,14 @@ import kotlin.coroutines.CoroutineContext
  **/
 class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope, ItemClickListener<Repository> {
 
+    // region Public Properties
+
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
+
+    // endregion
+
+    // region Private Properties
 
     private val repositoriesViewModel: JavaRepositoriesViewModel by viewModel()
 
@@ -67,6 +73,10 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope, ItemClickL
         adapter.showLoading = hasLoadMore
     }
 
+    // endregion
+
+    // region Life Cycle
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repositories)
@@ -77,9 +87,17 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope, ItemClickL
         fetchRepositories()
     }
 
+    // endregion
+
+    // region Public Methods
+
     override fun onItemClicked(item: Repository) {
         openPullRequests(item)
     }
+
+    // endregion
+
+    // region Private Methods
 
     private fun fetchRepositories() {
         launch {
@@ -168,4 +186,6 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope, ItemClickL
         intent.putExtra(KEY_REPOSITORY, repository)
         startActivity(intent)
     }
+
+    // endregion
 }

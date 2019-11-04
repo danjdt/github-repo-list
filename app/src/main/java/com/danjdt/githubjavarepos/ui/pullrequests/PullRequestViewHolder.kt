@@ -15,11 +15,17 @@ import com.danjdt.githubjavarepos.ui.core.ItemClickListener
  */
 class PullRequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    // region Private Views
+
     private val containerView: View = itemView.findViewById(R.id.containerView)
     private val pullRequestTextView: TextView = itemView.findViewById(R.id.pullRequestTextView)
     private val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
     private val usernameTextView: TextView = itemView.findViewById(R.id.usernameTextView)
     private val userImageView: ImageView = itemView.findViewById(R.id.userImageView)
+
+    // endregion
+
+    // region Public Methods
 
     fun bind(pullRequest: PullRequest, itemClickListener: ItemClickListener<PullRequest>) {
         with(pullRequest) {
@@ -33,4 +39,6 @@ class PullRequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
             itemClickListener.onItemClicked(pullRequest)
         }
     }
+
+    // endregion
 }

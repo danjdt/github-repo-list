@@ -11,9 +11,17 @@ import com.danjdt.githubjavarepos.R
  **/
 class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    // region Private Properties
+
     private val loadMoreView: ProgressBar = itemView.findViewById(R.id.loadMoreView)
+
+    // endregion
+
+    // region Public Methods
 
     fun bind(show: Boolean) {
         loadMoreView.visibility = if (show) View.VISIBLE else View.GONE
     }
+
+    // endregion
 }

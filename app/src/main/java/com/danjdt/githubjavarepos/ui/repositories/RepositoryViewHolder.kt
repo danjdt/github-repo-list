@@ -16,6 +16,8 @@ import com.danjdt.githubjavarepos.ui.core.ItemClickListener
  **/
 class RepositoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    // region Private Views
+
     private val containerView: View = itemView.findViewById(R.id.containerView)
     private val repositoryTextView: TextView = itemView.findViewById(R.id.repositoryTextView)
     private val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
@@ -23,6 +25,10 @@ class RepositoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val forksTextView: TextView = itemView.findViewById(R.id.forksTextView)
     private val starsTextView: TextView = itemView.findViewById(R.id.starsTextView)
     private val userImageView: ImageView = itemView.findViewById(R.id.userImageView)
+
+    // endregion
+
+    // region Public Methods
 
     fun bind(repository: Repository, itemClickListener: ItemClickListener<Repository>) {
         with(repository) {
@@ -38,4 +44,6 @@ class RepositoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             itemClickListener.onItemClicked(repository)
         }
     }
+
+    // endregion
 }
