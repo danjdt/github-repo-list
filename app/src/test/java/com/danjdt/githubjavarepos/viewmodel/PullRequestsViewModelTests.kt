@@ -5,6 +5,7 @@ import com.danjdt.data.interactor.FetchPullRequestsInteractorMock
 import com.danjdt.domain.exception.EmptyListException
 import com.danjdt.domain.DUMMY_PULL_REQUESTS
 import com.danjdt.domain.DUMMY_REPOSITORY
+import com.danjdt.githubjavarepos.ui.pullrequests.PullRequestsViewModel
 import com.danjdt.githubjavarepos.utils.assertPullRequests
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -26,7 +27,10 @@ class PullRequestsViewModelTests {
     }
 
     private val viewModel: PullRequestsViewModel by lazy {
-        PullRequestsViewModel(interactor, DUMMY_REPOSITORY)
+        PullRequestsViewModel(
+            interactor,
+            DUMMY_REPOSITORY
+        )
     }
 
     @After

@@ -22,7 +22,7 @@ import com.danjdt.githubjavarepos.di.repositoryModule
 import com.danjdt.githubjavarepos.ui.core.ErrorView
 import com.danjdt.githubjavarepos.ui.repositories.JavaRepositoriesActivity
 import com.danjdt.githubjavarepos.ui.repositories.RepositoryViewHolder
-import com.danjdt.githubjavarepos.viewmodel.JavaRepositoriesViewModel
+import com.danjdt.githubjavarepos.ui.repositories.JavaRepositoriesViewModel
 import kotlinx.android.synthetic.main.activity_repositories.*
 import kotlinx.coroutines.FlowPreview
 import org.junit.After

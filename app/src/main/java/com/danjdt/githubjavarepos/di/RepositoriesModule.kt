@@ -2,7 +2,7 @@ package com.danjdt.githubjavarepos.di
 
 import com.danjdt.domain.interactor.FetchJavaRepositoriesInteractor
 import com.danjdt.domain.interactor.FetchJavaRepositoriesInteractorImpl
-import com.danjdt.githubjavarepos.viewmodel.JavaRepositoriesViewModel
+import com.danjdt.githubjavarepos.ui.repositories.JavaRepositoriesViewModel
 import kotlinx.coroutines.FlowPreview
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
