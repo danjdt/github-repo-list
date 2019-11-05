@@ -1,5 +1,6 @@
 package com.danjdt.githubjavarepos.viewmodel
 
+
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.danjdt.data.interactor.FetchPullRequestsInteractorMock
 import com.danjdt.domain.exception.EmptyListException
