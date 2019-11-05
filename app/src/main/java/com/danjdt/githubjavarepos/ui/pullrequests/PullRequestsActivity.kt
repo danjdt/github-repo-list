@@ -1,7 +1,5 @@
 package com.danjdt.githubjavarepos.ui.pullrequests
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.danjdt.domain.entity.PullRequest
 import com.danjdt.githubjavarepos.R
+import com.danjdt.githubjavarepos.navigation.Router
 import com.danjdt.githubjavarepos.ui.core.DividerItemDecoration
 import com.danjdt.githubjavarepos.ui.core.ItemClickListener
 import com.danjdt.githubjavarepos.utils.KEY_REPOSITORY
@@ -17,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_pull_requests.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import kotlin.coroutines.CoroutineContext
@@ -37,6 +37,8 @@ class PullRequestsActivity : AppCompatActivity(), CoroutineScope, ItemClickListe
     // region Private Properties
 
     private val pullRequestsViewModel: PullRequestsViewModel by viewModel { parametersOf(repository) }
+
+    private val router: Router by inject { parametersOf(this) }
 
     private val adapter: PullRequestAdapter by lazy {
         PullRequestAdapter(this)
@@ -103,7 +105,7 @@ class PullRequestsActivity : AppCompatActivity(), CoroutineScope, ItemClickListe
     }
 
     override fun onItemClicked(item: PullRequest) {
-        actionOpenUrl(item.htmlUrl)
+        router.openUrl(item.htmlUrl)
     }
 
     // endregion
@@ -196,11 +198,6 @@ class PullRequestsActivity : AppCompatActivity(), CoroutineScope, ItemClickListe
         } else {
             pullRequestRecyclerView.visibility = View.VISIBLE
         }
-    }
-
-    private fun actionOpenUrl(url: String) {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        startActivity(browserIntent)
     }
 
     // endregion
