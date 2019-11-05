@@ -19,17 +19,20 @@ import com.danjdt.githubjavarepos.R
 import com.danjdt.githubjavarepos.di.networkModule
 import com.danjdt.githubjavarepos.di.pullRequestsModule
 import com.danjdt.githubjavarepos.di.repositoryModule
+import com.danjdt.githubjavarepos.mock.RouterMock
+import com.danjdt.githubjavarepos.navigation.Router
 import com.danjdt.githubjavarepos.ui.core.ErrorView
+import com.danjdt.githubjavarepos.ui.pullrequests.PullRequestViewHolder
 import com.danjdt.githubjavarepos.ui.repositories.JavaRepositoriesActivity
-import com.danjdt.githubjavarepos.ui.repositories.RepositoryViewHolder
 import com.danjdt.githubjavarepos.ui.repositories.JavaRepositoriesViewModel
+import com.danjdt.githubjavarepos.ui.repositories.RepositoryViewHolder
+import com.danjdt.githubjavarepos.utils.Spy
+import com.danjdt.githubjavarepos.utils.clickChildViewWithId
 import kotlinx.android.synthetic.main.activity_repositories.*
 import kotlinx.coroutines.FlowPreview
-import org.junit.After
+import org.junit.*
 import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.Assert.assertTrue
 import org.junit.runner.RunWith
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -47,15 +50,33 @@ import org.koin.dsl.module
 @FlowPreview
 class JavaRepositoriesActivityTests {
 
+    // region Public Properties
+
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
     @get:Rule
     val activityRule = ActivityTestRule(JavaRepositoriesActivity::class.java, true, false)
 
+    // endregion
+
+    // region Private Properties
+
+    private var isOpenPullRequestCalled: Boolean = false
+
     private val interactor: FetchJavaRepositoriesInteractorMock by lazy {
         FetchJavaRepositoriesInteractorMock()
     }
+
+    private val spy = object : Spy<Boolean> {
+        override fun report(t: Boolean) {
+            isOpenPullRequestCalled = true
+        }
+    }
+
+    // endregion
+
+    // region Public Methods
 
     @Before
     fun setup() {
@@ -66,6 +87,7 @@ class JavaRepositoriesActivityTests {
     @After
     fun tearDown() {
         stopKoin()
+        isOpenPullRequestCalled = false
         activityRule.activity?.let {
             activityRule.finishActivity()
         }
@@ -128,6 +150,26 @@ class JavaRepositoriesActivityTests {
         }
     }
 
+    @Test
+    fun testItemClickOpensPullRequests() {
+        activityRule.launchActivity(Intent())
+        performClickAtItem()
+        assertTrue(isOpenPullRequestCalled)
+    }
+
+    // endregion
+
+    // region Private Methods
+
+    private fun performClickAtItem() {
+        onView(withId(R.id.repositoriesRecyclerView)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<PullRequestViewHolder>(
+                0,
+                clickChildViewWithId(R.id.containerView)
+            )
+        )
+    }
+
     private fun assertItemViewContent(itemView: View) {
         val repositoryTextView: TextView = itemView.findViewById(R.id.repositoryTextView)
         val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
@@ -143,8 +185,8 @@ class JavaRepositoriesActivityTests {
     }
 
     private fun assertErrorViewContent(errorView: ErrorView) {
-        val titleTextView : TextView = errorView.findViewById(R.id.titleTextView)
-        val messageTextView : TextView = errorView.findViewById(R.id.messageTextView)
+        val titleTextView: TextView = errorView.findViewById(R.id.titleTextView)
+        val messageTextView: TextView = errorView.findViewById(R.id.messageTextView)
         assertEquals("Ops!", titleTextView.text)
         assertEquals(
             "Um erro inesperado aconteceu. Por favor tente novamente.",
@@ -153,8 +195,8 @@ class JavaRepositoriesActivityTests {
     }
 
     private fun assertEmptyViewContent(errorView: ErrorView) {
-        val titleTextView : TextView = errorView.findViewById(R.id.titleTextView)
-        val messageTextView : TextView = errorView.findViewById(R.id.messageTextView)
+        val titleTextView: TextView = errorView.findViewById(R.id.titleTextView)
+        val messageTextView: TextView = errorView.findViewById(R.id.messageTextView)
         assertEquals("Ops!", titleTextView.text)
         assertEquals("Nenhum item encontrado.", messageTextView.text)
     }
@@ -177,9 +219,13 @@ class JavaRepositoriesActivityTests {
                 viewModel {
                     JavaRepositoriesViewModel(interactor)
                 }
+
+                single<Router> { RouterMock(spy) }
             }))
         } catch (e: Exception) {
             throw e
         }
     }
+
+    // endregion
 }

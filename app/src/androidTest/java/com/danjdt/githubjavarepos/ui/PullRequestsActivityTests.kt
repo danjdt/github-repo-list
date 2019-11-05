@@ -1,6 +1,5 @@
 package com.danjdt.githubjavarepos.ui
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
@@ -14,27 +13,27 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
-import androidx.test.runner.lifecycle.Stage
 import com.danjdt.data.interactor.FetchPullRequestsInteractorMock
 import com.danjdt.domain.DUMMY_REPOSITORY
 import com.danjdt.githubjavarepos.R
 import com.danjdt.githubjavarepos.di.networkModule
 import com.danjdt.githubjavarepos.di.repositoriesModule
 import com.danjdt.githubjavarepos.di.repositoryModule
+import com.danjdt.githubjavarepos.mock.RouterMock
+import com.danjdt.githubjavarepos.navigation.Router
 import com.danjdt.githubjavarepos.ui.core.ErrorView
 import com.danjdt.githubjavarepos.ui.pullrequests.PullRequestViewHolder
 import com.danjdt.githubjavarepos.ui.pullrequests.PullRequestsActivity
-import com.danjdt.githubjavarepos.utils.clickChildViewWithId
 import com.danjdt.githubjavarepos.ui.pullrequests.PullRequestsViewModel
+import com.danjdt.githubjavarepos.utils.Spy
+import com.danjdt.githubjavarepos.utils.clickChildViewWithId
 import kotlinx.android.synthetic.main.activity_pull_requests.*
 import kotlinx.android.synthetic.main.activity_repositories.errorView
 import kotlinx.coroutines.FlowPreview
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -55,15 +54,33 @@ import org.koin.dsl.module
 @FlowPreview
 class PullRequestsActivityTests {
 
+    // region Public Properties
+
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
     @get:Rule
     val activityRule = ActivityTestRule(PullRequestsActivity::class.java, true, false)
 
+    // endregion
+
+    // region Private Properties
+
+    private var isOpenUrlCalled: Boolean = false
+
     private val interactor: FetchPullRequestsInteractorMock by lazy {
         FetchPullRequestsInteractorMock()
     }
+
+    private val spy = object : Spy<Boolean> {
+        override fun report(t: Boolean) {
+            isOpenUrlCalled = true
+        }
+    }
+
+    // enregion
+
+    // region Public Methods
 
     @Before
     fun setup() {
@@ -74,6 +91,7 @@ class PullRequestsActivityTests {
     @After
     fun tearDown() {
         stopKoin()
+        isOpenUrlCalled = false
         activityRule.activity?.let {
             activityRule.finishActivity()
         }
@@ -137,15 +155,15 @@ class PullRequestsActivityTests {
     }
 
     @Test
-    fun testItemClickOpensPullRequestActivity() {
+    fun testItemClickOpensUrl() {
         activityRule.launchActivity(Intent())
-
         performClickAtItem()
-
-        val activity = getCurrentActivity()
-
-        assertNull(activity)
+        assertTrue(isOpenUrlCalled)
     }
+
+    // enregion
+
+    // region Private Methods
 
     private fun performClickAtItem() {
         onView(withId(R.id.pullRequestRecyclerView)).perform(
@@ -167,8 +185,8 @@ class PullRequestsActivityTests {
     }
 
     private fun assertErrorViewContent(errorView: ErrorView) {
-        val titleTextView : TextView = errorView.findViewById(R.id.titleTextView)
-        val messageTextView : TextView = errorView.findViewById(R.id.messageTextView)
+        val titleTextView: TextView = errorView.findViewById(R.id.titleTextView)
+        val messageTextView: TextView = errorView.findViewById(R.id.messageTextView)
         assertEquals("Ops!", titleTextView.text)
         assertEquals(
             "Um erro inesperado aconteceu. Por favor tente novamente.",
@@ -177,8 +195,8 @@ class PullRequestsActivityTests {
     }
 
     private fun assertEmptyViewContent(errorView: ErrorView) {
-        val titleTextView : TextView = errorView.findViewById(R.id.titleTextView)
-        val messageTextView : TextView = errorView.findViewById(R.id.messageTextView)
+        val titleTextView: TextView = errorView.findViewById(R.id.titleTextView)
+        val messageTextView: TextView = errorView.findViewById(R.id.messageTextView)
         assertEquals("Ops!", titleTextView.text)
         assertEquals("Nenhum item encontrado.", messageTextView.text)
     }
@@ -189,16 +207,6 @@ class PullRequestsActivityTests {
                 recyclerView.adapter!!.itemCount - 1
             )
         )
-    }
-
-    private fun getCurrentActivity(): Activity? {
-        var currentActivity: Activity? = null
-        getInstrumentation().runOnMainSync { run { currentActivity =
-            ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED)
-                .elementAtOrNull(0)
-        }
-        }
-        return currentActivity
     }
 
     private fun setupKoin(context: Context) {
@@ -214,9 +222,13 @@ class PullRequestsActivityTests {
                         DUMMY_REPOSITORY
                     )
                 }
+
+                single<Router> { RouterMock(spy) }
             }))
         } catch (e: Exception) {
             throw e
         }
     }
+
+    // endregion
 }
