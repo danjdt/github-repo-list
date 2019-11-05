@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.danjdt.domain.entity.Repository
 import com.danjdt.githubjavarepos.R
+import com.danjdt.githubjavarepos.navigation.Router
 import com.danjdt.githubjavarepos.ui.core.ItemClickListener
 import com.danjdt.githubjavarepos.ui.pullrequests.PullRequestsActivity
 import com.danjdt.githubjavarepos.utils.KEY_REPOSITORY
@@ -18,7 +19,9 @@ import kotlinx.android.synthetic.main.activity_repositories.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -38,6 +41,8 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope,
     // region Private Properties
 
     private val repositoriesViewModel: JavaRepositoriesViewModel by viewModel()
+
+    private val router: Router by inject { parametersOf(this) }
 
     private val adapter: RepositoryAdapter by lazy {
         RepositoryAdapter(this)
@@ -94,7 +99,7 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope,
     // region Public Methods
 
     override fun onItemClicked(item: Repository) {
-        openPullRequests(item)
+        router.openPullRequests(item)
     }
 
     // endregion
@@ -181,12 +186,6 @@ class JavaRepositoriesActivity : AppCompatActivity(), CoroutineScope,
         } else {
             repositoriesRecyclerView.visibility = VISIBLE
         }
-    }
-
-    private fun openPullRequests(repository: Repository) {
-        val intent = Intent(this, PullRequestsActivity::class.java)
-        intent.putExtra(KEY_REPOSITORY, repository)
-        startActivity(intent)
     }
 
     // endregion

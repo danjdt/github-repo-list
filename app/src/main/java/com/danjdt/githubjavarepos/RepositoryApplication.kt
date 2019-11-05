@@ -1,10 +1,7 @@
 package com.danjdt.githubjavarepos
 
 import android.app.Application
-import com.danjdt.githubjavarepos.di.networkModule
-import com.danjdt.githubjavarepos.di.pullRequestsModule
-import com.danjdt.githubjavarepos.di.repositoriesModule
-import com.danjdt.githubjavarepos.di.repositoryModule
+import com.danjdt.githubjavarepos.di.*
 import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -23,7 +20,7 @@ class RepositoryApplication : Application() {
     }
 
     private val appModules: List<Module> by lazy {
-        listOf(repositoriesModule, pullRequestsModule, repositoryModule, networkModule)
+        listOf(repositoriesModule, pullRequestsModule, repositoryModule, networkModule, routerModule)
     }
 
     override fun onCreate() {
