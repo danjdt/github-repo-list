@@ -13,6 +13,8 @@ import com.danjdt.githubjavarepos.utils.KEY_REPOSITORY
  */
 class RouterImpl(val context: Context) : Router {
 
+    // region Public Methods
+
     override fun openPullRequests(repository: Repository) {
         val intent = Intent(context, PullRequestsActivity::class.java)
         intent.putExtra(KEY_REPOSITORY, repository)
@@ -23,4 +25,6 @@ class RouterImpl(val context: Context) : Router {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         context.startActivity(browserIntent)
     }
+
+    // endregion
 }
